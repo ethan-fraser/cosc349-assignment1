@@ -1,0 +1,11 @@
+doctype html
+html
+    head
+        title Dashboard 
+
+    body 
+        p name: #{fname} #{lname}
+        p email: #{email}
+
+        form(method="GET", action="http://localhost:8080/logout")
+            button(type="submit") Logout
