@@ -1,25 +1,42 @@
 {
   "name": "webserver",
-  "version": "0.0.1",
-  "description": "Serves the interface for the app",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ethan-fraser/cosc349-assignment1.git"
-  },
-  "author": "Ethan Fraser",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ethan-fraser/cosc349-assignment1/issues"
-  },
-  "homepage": "https://github.com/ethan-fraser/cosc349-assignment1#readme",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "./",
+  "proxy": "http://localhost:5000",
   "dependencies": {
-    "express": "^4.17.1",
-    "pug": "^3.0.2",
-    "request": "^2.88.2"
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "mobx": "^6.3.2",
+    "mobx-react": "^7.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

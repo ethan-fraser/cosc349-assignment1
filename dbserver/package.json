@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/ethan-fraser/cosc349-assignment1#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "express": "^4.17.1",
+    "express-mysql-session": "^2.1.6",
+    "express-session": "^1.17.2",
+    "mysql": "^2.18.1",
     "mysql2": "^2.3.0"
   }
 }

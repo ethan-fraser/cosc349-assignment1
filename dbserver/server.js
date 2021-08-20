@@ -1,25 +1,45 @@
 const express = require('express');
 const app = express();
-const port = 8180;
+const path = require('path');
+const mysql = require('mysql');
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+const Router = require('./Router');
 
-const mysql = require('mysql2');
-const con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "password",
-    database: "test"
+app.use(express.json());
+
+//Database connection
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'password',
+    database: 'dbserver'
 });
 
-app.get('/api/users', (req, res) => {
-    let email = req.query.email;
-    con.connect((err) => {
-        if (err) throw err;
-        // asking for a sql injection attack!
-        con.query(`select * from users where email = "${email}";`, (err, result) => {
-            if (err) throw err;
-            res.json(result[0]);
-        });
-    })
+db.connect(function(err) {
+    if (err) {
+        console.log('DB error');
+        throw err;
+    }
 });
 
-app.listen(port, () => console.log(`dbserver listening on port ${port}`))
+const sessionStore = new MySQLStore({
+    expiration: (1825 * 86400 * 1000),
+    endConnectionOnClose: false
+}, db);
+
+app.use(session({
+    key: 'random1',
+    secret: 'random2',
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: (1825 * 86400 * 1000),
+        httpOnly: false
+    }
+}));
+
+new Router(app, db);
+
+app.listen(5000);

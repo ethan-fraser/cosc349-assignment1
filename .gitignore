@@ -1,1 +1,6 @@
+.vscode
 */node_modules
+.vagrant
+*.log*
+.DS_Store
+.env*
