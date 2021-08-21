@@ -3,7 +3,9 @@
 ## Running the project
 
 - Clone the repository
-`git clone https://github.com/ethan-fraser/assignment1.git`
+`git clone https://github.com/ethan-fraser/cosc349-assignment1.git`
+- cd into the resulting directory
+`cd cosc349-assignment1`
 - Bring the VMs up
 `vagrant up`
 - Once that is complete, navigate to http://192.168.2.11/
