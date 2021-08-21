@@ -2,10 +2,10 @@
   "name": "dbserver",
   "version": "0.0.1",
   "description": "Database server",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/ethan-fraser/cosc349-assignment1#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "express-mysql-session": "^2.1.6",
     "express-session": "^1.17.2",

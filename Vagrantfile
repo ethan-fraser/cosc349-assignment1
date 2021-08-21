@@ -25,8 +25,9 @@ Vagrant.configure("2") do |config|
     
         # install dependencies and run frontend server
         cd /vagrant
-        npm install
-        npm start
+        npm run build
+        npm install -g serve
+        serve -s build -l 80
       SHELL
     end
   
@@ -39,7 +40,7 @@ Vagrant.configure("2") do |config|
         apt-get update
         
         # configure password
-        export MYSQL_PWD='insecure_mysqlroot_pw'
+        export MYSQL_PWD='password'
         echo "mysql-server mysql-server/root_password password $MYSQL_PWD" | debconf-set-selections 
         echo "mysql-server mysql-server/root_password_again password $MYSQL_PWD" | debconf-set-selections
 

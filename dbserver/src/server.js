@@ -11,7 +11,7 @@ app.use(express.json());
 //Database connection
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
+    user: 'webuser',
     password: 'password',
     database: 'dbserver'
 });
@@ -42,4 +42,4 @@ app.use(session({
 
 new Router(app, db);
 
-app.listen(5000);
+app.listen(3000);
