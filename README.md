@@ -1,5 +1,17 @@
-# cosc349-assignment1
-COSC349 Cloud Computing Architecture (2021 Sem 2)
+# COSC349 Cloud Computing Architecture (2021 Sem 2)
+---
+
+## Running the project
+
+- Clone the repository
+`git clone https://github.com/ethan-fraser/assignment1.git`
+- Bring the VMs up
+`vagrant up`
+- Once that is complete, navigate to http://192.168.2.11/
+
+---
+
+## Assignment Info
 
 ### Submission Information
 Due date: Monday, 6th September 2021, at 11:59 PM  
