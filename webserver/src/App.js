@@ -5,12 +5,14 @@ import LoginForm 	from './components/LoginForm';
 import SubmitButton from './components/SubmitButton';
 import './App.css';
 
+const API_URL = process.env.APIURL || "http://192.168.2.12";
+
 class App extends React.Component {
 
 	// API calls to check if the user is logged in
 	async componentDidMount() {
 		try {
-			let res = await fetch('/isLoggedIn', {
+			let res = await fetch(API_URL + '/isLoggedIn', {
 				method: 'post',
 				headers: {
 					'Accept': 'application/json',
@@ -37,7 +39,7 @@ class App extends React.Component {
 	//Logout API endpoint
 	async doLogout() {
 		try {
-			let res = await fetch('/logout', {
+			let res = await fetch(API_URL + '/logout', {
 				method: 'post',
 				headers: {
 					'Accept': 'application/json',

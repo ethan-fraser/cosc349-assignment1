@@ -82,14 +82,15 @@ class Router {
 
     isLoggedIn(app, db) {
 
-        app.post('/logout', (req, res) => {
+        app.post('/isLoggedIn', (req, res) => {
+            console.log("I have a request here")
             if (req.session.email) {
                 let cols = [req.session.email];
                 db.query('SELECT * FROM users WHERE email = ? LIMIT 1', cols, (err, data, fields) => {
                     if (data && data.length === 1) {
                         res.json({
                             success: true,
-                            username: data[0].username
+                            email: data[0].email
                         })
                         return true;
                     } else {

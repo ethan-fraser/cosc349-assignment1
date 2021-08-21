@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const cors = require('cors');
 const mysql = require('mysql');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const Router = require('./Router');
 
 app.use(express.json());
+app.use(cors());
 
 //Database connection
 const db = mysql.createConnection({
@@ -42,4 +44,4 @@ app.use(session({
 
 new Router(app, db);
 
-app.listen(3000);
+app.listen(80);

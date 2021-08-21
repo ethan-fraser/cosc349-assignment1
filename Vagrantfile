@@ -26,8 +26,7 @@ Vagrant.configure("2") do |config|
         # install dependencies and run frontend server
         cd /vagrant
         npm run build
-        npm install -g serve
-        serve -s build -l 80
+        npm run start-prod &
       SHELL
     end
   
@@ -37,7 +36,7 @@ Vagrant.configure("2") do |config|
       dbserver.vm.synced_folder "./dbserver", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
       dbserver.vm.provision "shell", inline: <<-SHELL
         # update and copy files
-        apt-get update
+        sudo apt-get update
         
         # configure password
         export MYSQL_PWD='password'
@@ -45,7 +44,7 @@ Vagrant.configure("2") do |config|
         echo "mysql-server mysql-server/root_password_again password $MYSQL_PWD" | debconf-set-selections
 
         # install mysql
-        apt-get -y install mysql-server
+        sudo apt-get -y install mysql-server
 
         # create database
         echo "CREATE DATABASE IF NOT EXISTS dbserver;" | mysql
@@ -67,7 +66,7 @@ Vagrant.configure("2") do |config|
         # install dependencies and run api server
         cd /vagrant
         npm install
-        npm start
+        npm start &
         
       SHELL
     end

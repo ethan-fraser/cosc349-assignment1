@@ -3,6 +3,8 @@ import InputField 	from './InputField';
 import SubmitButton from './SubmitButton';
 import UserStore 	from '../stores/UserStore';
 
+const API_URL = process.env.APIURL || "http://192.168.2.12";
+
 class LoginForm extends React.Component {
 
 	constructor(props) {
@@ -43,7 +45,7 @@ class LoginForm extends React.Component {
 		})
 
 		try {
-			let res = await fetch('/login', {
+			let res = await fetch(API_URL + '/login', {
 				method: 'post',
 				headers: {
 					'Accept': 'application/json',
