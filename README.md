@@ -1,5 +1,4 @@
 # COSC349 Cloud Computing Architecture (2021 Sem 2)
----
 
 ## Running the project
 
@@ -9,7 +8,6 @@
 `vagrant up`
 - Once that is complete, navigate to http://192.168.2.11/
 
----
 
 ## Assignment Info
 
