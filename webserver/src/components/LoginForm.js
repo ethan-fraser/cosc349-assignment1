@@ -3,7 +3,7 @@ import InputField 	from './InputField';
 import SubmitButton from './SubmitButton';
 import UserStore 	from '../stores/UserStore';
 
-const API_URL = process.env.APIURL || "http://192.168.2.12";
+const API_URL = "http://192.168.2.12:3000";
 
 class LoginForm extends React.Component {
 
@@ -51,6 +51,7 @@ class LoginForm extends React.Component {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json'
 				},
+                credentials: 'include',
 				body: JSON.stringify({
 					email: this.state.email,
 					password: this.state.password

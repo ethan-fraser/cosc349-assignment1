@@ -5,7 +5,7 @@ import LoginForm 	from './components/LoginForm';
 import SubmitButton from './components/SubmitButton';
 import './App.css';
 
-const API_URL = process.env.APIURL || "http://192.168.2.12";
+const API_URL = "http://192.168.2.12:3000";
 
 class App extends React.Component {
 
@@ -17,7 +17,8 @@ class App extends React.Component {
 				headers: {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json'
-				}
+				},
+                credentials: 'include'
 			});
 			let result = await res.json();
 			if (result && result.success) {
@@ -44,7 +45,8 @@ class App extends React.Component {
 				headers: {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json'
-				}
+				},
+                credentials: 'include'
 			});
 			let result = await res.json();
 			if (result && result.success) {

@@ -10,7 +10,6 @@ class Router {
 
     login(app, db) {
         app.post('/login', (req, res) => {
-
             let email = req.body.email;
             let password = req.body.password;
 
@@ -27,19 +26,16 @@ class Router {
                     return;
                 }
 
-                //Found 1 user with this email
                 if (data && data.length === 1) {
                     bcrypt.compare(password, data[0].passwd, (bcryptErr, verified) => {
                         if (verified) {
-                            req.session.email = data[0].email;
-
+                            req.session.email = data[0].email
                             res.json({
                                 success: true,
                                 email: data[0].email,
                                 fname: data[0].fname,
                                 lname: data[0].lname
                             })
-
                             return;
                         } else {
                             res.json({
@@ -52,7 +48,7 @@ class Router {
                     console.log(data)
                     res.json({
                         success: false,
-                        msg: 'Could not find user with that email'
+                        msg: 'User not found'
                     })
                 }
 
@@ -62,14 +58,11 @@ class Router {
 
     logout(app, db) {
         app.post('/logout', (req, res) => {
-
             if (req.session.email) {
-
                 req.session.destroy();
                 res.json({
                     success: true
                 })
-
                 return true;
             } else {
                 res.json({
@@ -83,7 +76,6 @@ class Router {
     isLoggedIn(app, db) {
 
         app.post('/isLoggedIn', (req, res) => {
-            console.log("I have a request here")
             if (req.session.email) {
                 let cols = [req.session.email];
                 db.query('SELECT * FROM users WHERE email = ? LIMIT 1', cols, (err, data, fields) => {
@@ -95,21 +87,19 @@ class Router {
                         return true;
                     } else {
                         res.json({
-                            success: false
+                            success: false,
+                            msg: "No user with that email"
                         })
                     }
                 });
-            }
-
-            else {
+            } else {
                 res.json({
-                    success: false
+                    success: false,
+                    msg: "No email in session data"
                 })
             }
         });
-
     }
-
 }
 
 module.exports = Router;

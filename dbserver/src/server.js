@@ -1,14 +1,20 @@
 const express = require('express');
 const app = express();
-const path = require('path');
-const cors = require('cors');
 const mysql = require('mysql');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const Router = require('./Router');
 
+const port = 3000;
+
 app.use(express.json());
-app.use(cors());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://192.168.2.11:3000")
+    res.header("Access-Control-Allow-Methods", "POST")
+    res.header("Access-Control-Allow-Headers", "Content-Type")
+    res.header("Access-Control-Allow-Credentials", true)
+    next()
+})
 
 //Database connection
 const db = mysql.createConnection({
@@ -44,4 +50,4 @@ app.use(session({
 
 new Router(app, db);
 
-app.listen(80);
+app.listen(port, () => console.log("Backend being served on port " + port));

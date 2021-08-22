@@ -2,13 +2,18 @@
 
 ## Running the project
 
-- Clone the repository
+- Clone the repository\
 `git clone https://github.com/ethan-fraser/cosc349-assignment1.git`
-- cd into the resulting directory
+- cd into the resulting directory\
 `cd cosc349-assignment1`
-- Bring the VMs up
+- Bring the VMs up\
 `vagrant up`
-- Once that is complete, navigate to http://192.168.2.11/
+- Run the start script
+    - If necessary, add execution privileges\
+    `chmod +x run.sh`
+    - Run the script\
+    `./run.sh`
+- Navigate to http://192.168.2.11/
 
 
 ## Assignment Info

@@ -22,11 +22,6 @@ Vagrant.configure("2") do |config|
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
         source ~/.nvm/nvm.sh
         nvm install --lts
-    
-        # install dependencies and run frontend server
-        cd /vagrant
-        npm run build
-        npm run start-prod &
       SHELL
     end
   
@@ -58,16 +53,13 @@ Vagrant.configure("2") do |config|
         # run setup script for database
         cat /vagrant/setup-database.sql | mysql -u webuser dbserver
 
+      SHELL
+
+      dbserver.vm.provision "shell", privileged: false, inline: <<-SHELL
         # install node
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
         source ~/.nvm/nvm.sh
         nvm install --lts
-
-        # install dependencies and run api server
-        cd /vagrant
-        npm install
-        npm start &
-        
       SHELL
     end
   
