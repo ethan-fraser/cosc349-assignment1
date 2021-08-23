@@ -45,7 +45,6 @@ class Router {
                         }
                     });
                 } else {
-                    console.log(data)
                     res.json({
                         success: false,
                         msg: 'User not found'
@@ -82,7 +81,9 @@ class Router {
                     if (data && data.length === 1) {
                         res.json({
                             success: true,
-                            email: data[0].email
+                            email: data[0].email,
+                            fname: data[0].fname,
+                            lname: data[0].lname
                         })
                         return true;
                     } else {

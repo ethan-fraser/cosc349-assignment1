@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "webserver" do |webserver|
       webserver.vm.hostname = "webserver"
-      webserver.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+      webserver.vm.network "forwarded_port", guest: 3000, host: 8080, host_ip: "127.0.0.1"
       webserver.vm.network "private_network", ip: "192.168.2.11"
       webserver.vm.synced_folder "./webserver", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
       webserver.vm.provision "shell", inline: <<-SHELL
