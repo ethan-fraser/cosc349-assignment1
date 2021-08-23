@@ -23,6 +23,15 @@ Vagrant.configure("2") do |config|
         source ~/.nvm/nvm.sh
         nvm install --lts
       SHELL
+      webserver.vm.provision "restart", type: "shell", run: "once", inline: <<-SHELL
+        sudo kill -9 $(pgrep node)
+        source $HOME/.nvm/nvm.sh
+        cd /vagrant
+        npm install
+        #npm run build
+        npm run start #-prod
+        echo "webserver running"
+      SHELL
     end
   
     config.vm.define "dbserver" do |dbserver|
@@ -54,12 +63,19 @@ Vagrant.configure("2") do |config|
         cat /vagrant/setup-database.sql | mysql -u webuser dbserver
 
       SHELL
-
       dbserver.vm.provision "shell", privileged: false, inline: <<-SHELL
         # install node
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
         source ~/.nvm/nvm.sh
         nvm install --lts
+      SHELL
+      dbserver.vm.provision "restart", type: "shell", privileged: false, run: "once", inline: <<-SHELL
+        sudo kill -9 $(pgrep node)
+        source $HOME/.nvm/nvm.sh
+        cd /vagrant
+        npm install
+        npm run start
+        echo "dbserver running"
       SHELL
     end
   

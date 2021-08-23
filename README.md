@@ -2,18 +2,34 @@
 
 ## Running the project
 
-- Clone the repository\
-`git clone https://github.com/ethan-fraser/cosc349-assignment1.git`
-- cd into the resulting directory\
-`cd cosc349-assignment1`
-- Bring the VMs up\
-`vagrant up`
-- Run the start script
-    - If necessary, add execution privileges\
-    `chmod +x run.sh`
-    - Run the script\
-    `./run.sh`
-- Navigate to http://192.168.2.11/
+### Requirements
+- *VirtualBox (v6.1.x)*\
+https://www.virtualbox.org/wiki/Downloads
+- *Vagrant (v2.2.x)*
+    - **MacOS**\
+    `brew install vagrant`
+    - **Linux**\
+    Download and install from https://www.vagrantup.com/downloads, or install with your distro's package manager.
+    - **Windows**\
+    Download and install from https://www.vagrantup.com/downloads.
+### Running the servers
+- *Clone the repository*
+    `git clone https://github.com/ethan-fraser/cosc349-assignment1.git`
+- *cd into the resulting directory*
+    `cd cosc349-assignment1`
+- *Bring the VMs up*\
+    For now, you will need to bring up each server in a separate terminal window. We'll address this later.
+    ```shell
+    # terminal 1:
+    vagrant up webserver
+
+    # terminal 2:
+    vagrant up dbserver
+    ```
+- Navigate to http://192.168.2.11:3000/
+### Restarting the servers
+Once you have made changes to the source and you want to update the servers, run the following command:
+`vagrant provision <server_name> --provision-with restart`
 
 
 ## Assignment Info
