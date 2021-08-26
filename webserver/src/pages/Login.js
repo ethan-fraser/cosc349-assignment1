@@ -79,7 +79,7 @@ class Login extends React.Component {
         return (
             <div>
                 <h1 className="text-5xl text-gray-50 font-black text-center py-9">flatbills</h1>
-                <div className="w-96 mx-auto bg-gray-50 rounded-lg">
+                <div className="w-96 mx-auto bg-gray-50 rounded-lg shadow-2xl">
                     <div>
                         <h3 className="text-2xl text-gray-800 font-semibold text-center pt-7 pb-3">Welcome to flatbills!</h3>
                         <h5 className="text-base text-gray-800 font-semibold text-center pb-4">Log in to your account.</h5><br />
