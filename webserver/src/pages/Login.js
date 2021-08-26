@@ -78,7 +78,7 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                <h1 className="text-4xl text-gray-50 font-bold text-center py-12">flatbills</h1>
+                <h1 className="text-5xl text-gray-50 font-black text-center py-9">flatbills</h1>
                 <div className="w-96 mx-auto bg-gray-50 rounded-lg">
                     <div>
                         <h3 className="text-2xl text-gray-800 font-semibold text-center pt-7 pb-3">Welcome to flatbills!</h3>
@@ -106,7 +106,7 @@ class Login extends React.Component {
                         />
                     </div>
                 </div>
-                <h5 className="text-base text-gray-800 font-regular text-center my-3">Don't have an account? Register <Link to="/registerselect" className="underline">here</Link>.</h5>
+                <h5 className="text-base text-gray-50 font-regular text-center my-3">Don't have an account? Register <Link to="/registerselect" className="underline">here</Link>.</h5>
             </div>
         );
     }
