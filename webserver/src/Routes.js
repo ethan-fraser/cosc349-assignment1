@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import UserSelect from './pages/UserSelect';
+import RegisterSelect from './pages/RegisterSelect';
 import RegisterManager from './pages/RegisterManager';
 import RegisterMember from './pages/RegisterMember';
 import Dashboard from './pages/Dashboard';
@@ -17,8 +17,8 @@ function Routes() {
             <Route path="/login">
                 <Login />
             </Route>
-            <Route path="/userselect">
-                <UserSelect />
+            <Route path="/registerselect">
+                <RegisterSelect />
             </Route>
             <Route path="/registermanager">
                 <RegisterManager />
