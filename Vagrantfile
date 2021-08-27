@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
       webserver.vm.network "forwarded_port", guest: 3000, host: 8080, host_ip: "127.0.0.1"
       webserver.vm.network "private_network", ip: "192.168.2.11"
       webserver.vm.synced_folder "./webserver", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
-      webserver.vm.provision "shell", inline: <<-SHELL
+      webserver.vm.provision "shell", privileged: false, inline: <<-SHELL
         # update and copy files
         sudo apt-get update
 
@@ -22,15 +22,16 @@ Vagrant.configure("2") do |config|
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
         source ~/.nvm/nvm.sh
         nvm install --lts
-      SHELL
-      webserver.vm.provision "restart", type: "shell", run: "once", inline: <<-SHELL
-        sudo kill -9 $(pgrep node)
-        source $HOME/.nvm/nvm.sh
-        cd /vagrant
+
+        cd /vagrant 
         npm install
-        #npm run build
-        npm run start #-prod
-        echo "webserver running"
+        npm run build
+        npm install -g forever
+        forever start /vagrant/main.js
+      SHELL
+      webserver.vm.provision "restart", type: "shell", run: "never", inline: <<-SHELL
+        npm run build
+        forever restart /vagrant/main.js
       SHELL
     end
   
@@ -68,14 +69,14 @@ Vagrant.configure("2") do |config|
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
         source ~/.nvm/nvm.sh
         nvm install --lts
-      SHELL
-      dbserver.vm.provision "restart", type: "shell", privileged: false, run: "once", inline: <<-SHELL
-        sudo kill -9 $(pgrep node)
-        source $HOME/.nvm/nvm.sh
+
         cd /vagrant
         npm install
-        npm run start
-        echo "dbserver running"
+        npm install -g forever
+        forever start /vagrant/server.js
+      SHELL
+      dbserver.vm.provision "restart", type: "shell", privileged: false, run: "never", inline: <<-SHELL
+        forever restart /vagrant/server.js
       SHELL
     end
   

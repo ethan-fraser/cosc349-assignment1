@@ -3,7 +3,7 @@ const app = express();
 const mysql = require('mysql');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
-const Router = require('./Router');
+const Router = require('./src/Router');
 
 const port = 3000;
 
