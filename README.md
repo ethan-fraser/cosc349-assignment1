@@ -1,6 +1,6 @@
 # COSC349 Cloud Computing Architecture (2021 Sem 2)
 
-Project name: Flat Bills Manager
+Project name: Flat Bills Manager  
 Group members: Ethan Fraser and Magdeline Huang
 
 For full documentation, see the [docs](./docs/index.md) directory.
