@@ -1,5 +1,9 @@
 # COSC349 Cloud Computing Architecture (2021 Sem 2)
 
+Project name: Flat Bills Manager  
+
+Group members: Ethan Fraser and Magdeline Huang
+
 For full documentation, see the [docs](./docs/index.md) directory.
 
 ## Running the project 🏃
@@ -21,14 +25,7 @@ https://www.virtualbox.org/wiki/Downloads
 - *cd into the resulting directory*\
     `cd cosc349-assignment1`
 - *Bring the VMs up*\
-    For now, you will need to bring up each server in a separate terminal window. We'll address this later.
-    ```shell
-    # terminal 1
-    vagrant up webserver
-
-    # terminal 2
-    vagrant up dbserver
-    ```
+    `vagrant up`
 - Navigate to http://192.168.2.11:3000/ (192.168.2.11 is the IP address of the webserver and 3000 is React's default port number)
 
 ### Restarting the servers

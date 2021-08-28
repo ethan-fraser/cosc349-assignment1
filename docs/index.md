@@ -30,14 +30,7 @@ https://www.virtualbox.org/wiki/Downloads
 - *cd into the resulting directory*\
     `cd cosc349-assignment1`
 - *Bring the VMs up*\
-    For now, you will need to bring up each server in a separate terminal window. We'll address this later.
-    ```shell
-    # terminal 1
-    vagrant up webserver
-
-    # terminal 2
-    vagrant up dbserver
-    ```
+    `vagrant up`
 - Navigate to http://192.168.2.11:3000/
 ### Restarting the Servers
 Once you have made changes to the source and you want to update the servers, run the following command:
