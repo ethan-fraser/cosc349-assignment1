@@ -92,7 +92,7 @@ class RegisterMember extends React.Component {
                         <h5 className="text-base text-gray-800 font-semibold text-center pb-4">Join your flat account to track your bill payments.</h5><br />
                     </div>
                     <div className="text-base text-gray-800 font-regular text-center pb-7 flex flex-row mx-14">
-                        <div className="">
+                        <div>
                             <InputField 
                                 type='text'
                                 placeholder='Email'
