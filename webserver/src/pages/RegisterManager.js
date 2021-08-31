@@ -71,7 +71,7 @@ class RegisterManager extends React.Component {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json'
 				},
-                credentials: 'include',
+                credentials: 'include', // Satisfies CORS requirements
 				body: JSON.stringify({
 					email: this.state.email,
 					password: this.state.password,

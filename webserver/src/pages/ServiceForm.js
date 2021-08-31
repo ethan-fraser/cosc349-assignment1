@@ -15,7 +15,8 @@ class ServiceForm extends React.Component {
 			billName: '',
 			billDate: '',
             billAmount: 0,
-			buttonDisabled: false
+			buttonDisabled: false,
+            filledService: false
 		}
 	}
 
@@ -31,7 +32,8 @@ class ServiceForm extends React.Component {
 			billName: '',
 			billDate: '',
             billAmount: 0,
-			buttonDisabled: false
+			buttonDisabled: false,
+            filledService: false
 		})
 	}
 
@@ -72,7 +74,7 @@ class ServiceForm extends React.Component {
 				UserStore.billName = result.billName;
                 UserStore.billDate = result.billDate;
                 UserStore.billAmount = result.billAmount;
-                UserStore.filledService = true;
+                this.setState({ filledService: true})
 			} else if (result && result.success === false) {
 				this.resetForm();
 				alert(result.msg);
@@ -85,7 +87,7 @@ class ServiceForm extends React.Component {
 
     render() {
         // If service form is filled, go back to dashboard
-        if (UserStore.filledService) {
+        if (this.state.filledService) {
             return (
                 <div>
 					<Dashboard />
