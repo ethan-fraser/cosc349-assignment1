@@ -15,7 +15,8 @@ class Login extends React.Component {
 		this.state = {
 			email: '',
 			password: '',
-			buttonDisabled: false
+			buttonDisabled: false,
+            isLoggedIn: false
 		}
 	}
 
@@ -75,8 +76,9 @@ class Login extends React.Component {
 			if (result && result.success) {
 				UserStore.isLoggedIn = true;
 				UserStore.email = result.email;
-                // UserStore.fname = result.fname;
-                // UserStore.lname = result.lname;
+                UserStore.firstName = result.fname;
+                UserStore.lastName = result.lname;
+                this.setState({isLoggedIn: true});
 			// If user is not successfully logged in
 			} else if (result && result.success === false) {
 				this.resetForm();
@@ -91,7 +93,7 @@ class Login extends React.Component {
 	}
 
     render() {
-		if (UserStore.isLoggedIn) {
+		if (this.state.isLoggedIn) {
             return (
                 <div>
 					<Dashboard />
