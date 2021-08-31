@@ -1,11 +1,51 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import UserStore 	from '../stores/UserStore';
-import Login        from './Login';
 
 const API_URL = "http://192.168.2.12:3000";
 
 class Dashboard extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoggedIn: true
+        }
+    }
+
+    // API calls to check if the user is logged in
+	async componentDidMount() {
+		try {
+			let res = await fetch(API_URL + '/isLoggedIn', {
+				method: 'post',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+                credentials: 'include'
+			});
+
+			let result = await res.json(); // The result from res variable
+
+			// If user is successfully logged in
+			if (result && result.success) {
+				//UserStore.loading = false;
+                this.setState({isLoggedIn: true})
+				UserStore.isLoggedIn = true;
+				UserStore.email = result.email;
+                UserStore.firstName = result.fname;
+                UserStore.lastName = result.lname;
+			} else {
+				//UserStore.loading = false;
+                this.setState({isLoggedIn: false})
+				UserStore.isLoggedIn = false;
+			}
+		} catch(e) {
+			//UserStore.loading = false;
+            this.setState({isLoggedIn: false});
+			UserStore.isLoggedIn = false;
+		}
+	}
 
     // Instructions for when logout button is pressed
 	async doLogout() {
@@ -21,6 +61,7 @@ class Dashboard extends React.Component {
 			});
 			let result = await res.json();
 			if (result && result.success) {
+                this.setState({isLoggedIn: false});
 				UserStore.isLoggedIn = false;
 				UserStore.email = '';
                 UserStore.firstName = '';
@@ -39,11 +80,9 @@ class Dashboard extends React.Component {
 
     render() {
         // If user is logged out, go to login page
-        if (!UserStore.isLoggedIn) {
+        if (!this.state.isLoggedIn) {
             return (
-                <div>
-					<Login />
-			    </div>
+                <Redirect to="/login" />
             )
         }
 

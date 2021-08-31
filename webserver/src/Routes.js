@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 //import Home from './pages/Home';
 import Login from './pages/Login';
 import RegisterSelect from './pages/RegisterSelect';
@@ -13,6 +13,13 @@ import UserStore 	from './stores/UserStore';
 const API_URL = "http://192.168.2.12:3000";
 
 class Routes extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoggedIn: false
+        };
+    }
 
 	// API calls to check if the user is logged in
 	async componentDidMount() {
@@ -30,51 +37,38 @@ class Routes extends React.Component {
 
 			// If user is successfully logged in
 			if (result && result.success) {
-				//UserStore.loading = false;
-				UserStore.isLoggedIn = true;
-				UserStore.email = result.email;
-                UserStore.fname = result.fname;
-                UserStore.lname = result.lname;
-			} else {
-				//UserStore.loading = false;
-				UserStore.isLoggedIn = false;
+				this.setState({isLoggedIn: true});
 			}
 		} catch(e) {
-			//UserStore.loading = false;
-			UserStore.isLoggedIn = false;
+			console.log(e);
 		}
 	}
 
     render() {
-		// // If page is loading, show loading message
-		// if (UserStore.loading) {
-		// 	return (
-		// 		<div>
-		// 			<div>
-		// 				Loading, please wait...
-		// 			</div>	
-		// 		</div>
-		// 	);
-		// }
-        
-		//If logged in, show dashboard
-		if (UserStore.isLoggedIn) {
-            return (
-                <div>
-                    <Switch>
-                        <Route path="/dashboard">
-                            <Dashboard />
-                        </Route>
-                    </Switch>
-                </div>
-            );
+		// If page is loading, show loading message
+		if (this.state.loading) {
+			return (
+				<div>
+					<div>
+						Loading, please wait...
+					</div>	
+				</div>
+			);
 		}
+
+		//If logged in, show dashboard
+        let firstPage;
+		if (this.state.isLoggedIn) {
+            firstPage = "/dashboard"
+		} else {
+            firstPage = "/login"
+        }
 
 		//If not logged in
 		return (
             <Switch>
                 <Route exact path="/">
-                    <Login />
+                    <Redirect to={firstPage} />
                 </Route>
                 <Route path="/login">
                     <Login />
@@ -91,9 +85,9 @@ class Routes extends React.Component {
                 <Route path="/serviceform">
                     <ServiceForm />
                 </Route>
-                {/* <Route path="/dashboard">
+                <Route path="/dashboard">
                     <Dashboard />
-                </Route> */}
+                </Route>
             </Switch>
         );
 	}

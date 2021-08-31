@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import InputField 	from '../components/InputField';
 import SubmitButton from '../components/SubmitButton';
 import UserStore 	from '../stores/UserStore';
-import Dashboard    from '../pages/Dashboard';
 
 const API_URL = "http://192.168.2.12:3000";
 
@@ -19,6 +18,28 @@ class Login extends React.Component {
             isLoggedIn: false
 		}
 	}
+
+    async componentDidMount() {
+        try {
+			let res = await fetch(API_URL + '/isLoggedIn', {
+				method: 'post',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+                credentials: 'include'
+			});
+
+			let result = await res.json(); // The result from res variable
+
+			// If user is successfully logged in
+			if (result && result.success) {
+				this.setState({isLoggedIn: true});
+			}
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
 	// Configures the input field (property = property name; val = input value)
     setInputValue(property, val) {
@@ -93,11 +114,10 @@ class Login extends React.Component {
 	}
 
     render() {
+        console.log("rendering")
 		if (this.state.isLoggedIn) {
             return (
-                <div>
-					<Dashboard />
-			    </div>
+                <Redirect to="/dashboard" />
             )
         }
 
