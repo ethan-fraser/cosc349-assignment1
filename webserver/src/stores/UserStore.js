@@ -17,7 +17,6 @@ class UserStore {
             billName: '',
             billDate: '',
             billAmount: 0,
-            filledService: false, // Whether or not the service form has been filled
         })
     }
 }
