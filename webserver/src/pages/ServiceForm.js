@@ -16,7 +16,7 @@ class ServiceForm extends React.Component {
 			billDate: '',
             billAmount: 0,
 			buttonDisabled: false,
-            filledService: false
+            filledService: false // Whether or not the service form has been filled
 		}
 	}
 
