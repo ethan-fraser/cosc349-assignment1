@@ -29,7 +29,9 @@ Vagrant.configure("2") do |config|
         npm install -g forever
         forever start /vagrant/main.js
       SHELL
-      webserver.vm.provision "restart", type: "shell", run: "never", inline: <<-SHELL
+      webserver.vm.provision "restart", type: "shell", privileged: false, run: "never", inline: <<-SHELL
+        cd /vagrant
+        source ~/.nvm/nvm.sh
         npm run build
         forever restart /vagrant/main.js
       SHELL
@@ -76,6 +78,8 @@ Vagrant.configure("2") do |config|
         forever start /vagrant/server.js
       SHELL
       dbserver.vm.provision "restart", type: "shell", privileged: false, run: "never", inline: <<-SHELL
+        cd /vagrant
+        source ~/.nvm/nvm.sh
         forever restart /vagrant/server.js
       SHELL
     end

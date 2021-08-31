@@ -1,7 +1,7 @@
-drop table payments;
-drop table users;
-drop table services;
-drop table flats;
+drop table if exists payments;
+drop table if exists users;
+drop table if exists services;
+drop table if exists flats;
 
 
 create table flats (
@@ -50,3 +50,6 @@ create table payments (
     foreign key (service_for)
         references services(name)
 );
+
+insert into flats values ("sldjfl", "123 Fake St");
+insert into users values ("ejpfraser@gmail.com", "Ethan", "Fraser", "$2b$09$n4RT4.6/bXdlPNKHf8O5XujRLZhfbCnmOKATHSWdh8vzYyAcslOoS", 0, "sldjfl");
