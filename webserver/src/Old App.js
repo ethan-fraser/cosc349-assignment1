@@ -20,7 +20,10 @@ class App extends React.Component {
 				},
                 credentials: 'include'
 			});
-			let result = await res.json();
+
+			let result = await res.json(); // The result from res variable
+
+			// If user is successfully logged in
 			if (result && result.success) {
 				UserStore.loading = false;
 				UserStore.isLoggedIn = true;

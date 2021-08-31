@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import InputField 	from '../components/InputField';
 import SubmitButton from '../components/SubmitButton';
 import UserStore 	from '../stores/UserStore';
+import Dashboard    from '../pages/Dashboard';
 
 const API_URL = "http://192.168.2.12:3000";
 
@@ -38,53 +39,75 @@ class RegisterMember extends React.Component {
 		})
 	}
 
-    // FIX THIS!!!
-    // //API call
-	// async doLogin() {
-	// 	if (!this.state.email) {
-	// 		return;
-	// 	}
-	// 	if (!this.state.password) {
-	// 		return;
-	// 	}
+    // Instructions for when "next" button is pressed
+	async doNext() {
+        // If these properties aren't filled, return immediately
+		if (!this.state.email) {
+			return;
+		}
+		if (!this.state.password) {
+			return;
+		}
+        if (!this.state.firstName) {
+			return;
+		}
+        if (!this.state.lastName) {
+			return;
+		}
+        if (!this.state.flatName) {
+			return;
+		}
 
-	// 	this.setState({
-	// 		buttonDisabled: true
-	// 	})
+        // Set button's state to true
+		this.setState({
+			buttonDisabled: true
+		})
 
-	// 	try {
-	// 		let res = await fetch(API_URL + '/login', {
-	// 			method: 'post',
-	// 			headers: {
-	// 				'Accept': 'application/json',
-	// 				'Content-Type': 'application/json'
-	// 			},
-    //             credentials: 'include',
-	// 			body: JSON.stringify({
-	// 				email: this.state.email,
-	// 				password: this.state.password
-	// 			})
-	// 		});
-	// 		let result = await res.json();
-	// 		if (result && result.success) {
-	// 			UserStore.isLoggedIn = true;
-	// 			UserStore.email = result.email;
-    //             UserStore.fname = result.fname;
-    //             UserStore.lname = result.lname;
-	// 		} else if (result && result.success === false) {
-	// 			this.resetForm();
-	// 			alert(result.msg);
-	// 		}
-	// 	} catch(e) {
-	// 		console.log(e);
-	// 		this.resetForm();
-	// 	}
-
-	// }
+        // API calls to the dbserver
+		try {
+			let res = await fetch(API_URL + '/registermember', {
+				method: 'post',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+                credentials: 'include',
+				body: JSON.stringify({
+					email: this.state.email,
+					password: this.state.password,
+                    firstName: this.state.firstName,
+                    lastName: this.state.lastName,
+                    flatCode: this.state.flatCode
+				})
+			});
+			let result = await res.json();
+			if (result && result.success) {
+				UserStore.isLoggedIn = true;
+				UserStore.email = result.email;
+                UserStore.firstName = result.firstName;
+                UserStore.lastName = result.lastName;
+                UserStore.flatCode = result.flatCode;
+			} else if (result && result.success === false) {
+				this.resetForm();
+				alert(result.msg);
+			}
+		} catch(e) {
+			console.log(e);
+			this.resetForm();
+		}
+	}
 
     render() {
+        if (UserStore.isLoggedIn) {
+            return (
+                <div>
+					<Dashboard />
+			    </div>
+            )
+        }
+
         return (
-            <div>
+            <div className="grid place-items-center">
                 <h1 className="text-5xl text-gray-50 font-black text-center py-9">flatbills</h1>
                 <div className="w-max h-96 mx-auto bg-gray-50 rounded-lg shadow-2xl">
                     <div>
@@ -128,7 +151,7 @@ class RegisterMember extends React.Component {
                             <SubmitButton
                                 text='Next'
                                 disabled={this.state.buttonDisabled}
-                                onClick={ () => this.doLogin() }
+                                onClick={ () => this.doNext() }
                             />
                         </div>
                     </div>

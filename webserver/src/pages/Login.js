@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import InputField 	from '../components/InputField';
 import SubmitButton from '../components/SubmitButton';
 import UserStore 	from '../stores/UserStore';
+import Dashboard    from '../pages/Dashboard';
 
 const API_URL = "http://192.168.2.12:3000";
 
 class Login extends React.Component {
 
+	// Sets the default states for the properties
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -17,6 +19,7 @@ class Login extends React.Component {
 		}
 	}
 
+	// Configures the input field (property = property name; val = input value)
     setInputValue(property, val) {
 		val = val.trim();
 		this.setState({
@@ -24,6 +27,7 @@ class Login extends React.Component {
 		})
 	}
 
+	// Resets form to the default states
 	resetForm() {
 		this.setState({
 			email: '',
@@ -32,19 +36,24 @@ class Login extends React.Component {
 		})
 	}
 
-	//API call
+	// Instructions for when login button is pressed
 	async doLogin() {
+		// If an email doesn't exist, return immediately
 		if (!this.state.email) {
 			return;
 		}
+
+		// If a password doesn't exist, return immediately
 		if (!this.state.password) {
 			return;
 		}
 
+		// Set button's state to true
 		this.setState({
 			buttonDisabled: true
 		})
 
+		// API calls to the dbserver
 		try {
 			let res = await fetch(API_URL + '/login', {
 				method: 'post',
@@ -53,31 +62,45 @@ class Login extends React.Component {
 					'Content-Type': 'application/json'
 				},
                 credentials: 'include',
+				// Checks the submitted email and password against the dbserver records to see if it exists
 				body: JSON.stringify({
 					email: this.state.email,
 					password: this.state.password
 				})
 			});
-			let result = await res.json();
+
+			let result = await res.json(); // The result from res variable
+
+			// If user is successfully logged in
 			if (result && result.success) {
 				UserStore.isLoggedIn = true;
 				UserStore.email = result.email;
-                UserStore.fname = result.fname;
-                UserStore.lname = result.lname;
+                // UserStore.fname = result.fname;
+                // UserStore.lname = result.lname;
+			// If user is not successfully logged in
 			} else if (result && result.success === false) {
 				this.resetForm();
 				alert(result.msg);
 			}
+
+		// Catch errors		
 		} catch(e) {
 			console.log(e);
 			this.resetForm();
 		}
-
 	}
 
     render() {
+		if (UserStore.isLoggedIn) {
+            return (
+                <div>
+					<Dashboard />
+			    </div>
+            )
+        }
+
         return (
-            <div>
+            <div className="grid place-items-center">
                 <h1 className="text-5xl text-gray-50 font-black text-center py-9">flatbills</h1>
                 <div className="w-96 h-96 mx-auto bg-gray-50 rounded-lg shadow-2xl">
                     <div>

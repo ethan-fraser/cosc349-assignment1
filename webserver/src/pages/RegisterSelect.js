@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function UserSelect() {
     return (
-        <div>
+        <div className="grid place-items-center">
             <h1 className="text-5xl text-gray-50 font-black text-center py-9">flatbills</h1>
             <div className="w-96 h-96 mx-auto bg-gray-50 rounded-lg shadow-2xl">
                 <div>
