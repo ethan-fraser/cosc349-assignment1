@@ -1,0 +1,32 @@
+<script>import UserStore 	from '../stores/UserStore';</script>
+
+<!-- Complete Email template -->
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .body-bg {
+        background-image: linear-gradient(0deg, rgb(111, 167, 236) 0%, #c3caf1 131.49%);;
+        }
+    </style>
+</head>
+
+<body class="body-bg min-h-screen" style="font-family: 'Karla', sans-serif;">
+    <h1 style="font-size: 3rem; line-height: 1; color: white; font-weight: 900; text-align: center; padding-top: 2.25rem; padding-bottom: 2.25rem;">flatbills</h1>
+	<table align="center" border="0" cellpadding="0" cellspacing="0"
+		width="384" height="384" bgcolor="white" style="border-radius: 0.5rem; width: 24rem; height: 24rem">
+		<tbody>
+			<tr style="height: 24rem;">
+				<td align="center" style="border: none; --tw-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);">
+					<h5 style="font-size: 1rem; line-height: 1.5rem; color: black; font-weight: 600; text-align: center; padding-bottom: 1rem">
+						Hello User<script>{UserStore.firstName}</script>!
+						<br> These bills are due today:
+                    </h5>
+                    <p style="font-size: 1.5rem; line-height: 2rem; color: black; font-weight: 600; text-align: center">Bill 1   $0<br>Bill 2   $0<br>Bill 3   $0</p>
+                    <button style="font-weight: 600; color: white; --tw-bg-opacity: 1; background-color: rgba(96, 165, 250, var(--tw-bg-opacity)); border-radius: 0.25rem; border: none; width: 16rem; padding-top: 0.75rem; padding-bottom: 0.75rem; padding-left: 0.75rem; padding-right: 0.75rem">
+                        <a href="src/pages/Login.js" style="text-decoration: none; color: white">Pay Now</a>
+                    </button>
+				</td>
+			</tr>
+	</table>
+</body>
