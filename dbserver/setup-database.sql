@@ -1,6 +1,6 @@
-drop table if exists payments;
+drop table if exists billStatus;
 drop table if exists users;
-drop table if exists services;
+drop table if exists bills;
 drop table if exists flats;
 
 
@@ -13,7 +13,7 @@ create table users (
     email       varchar(128) primary key,
     fname       varchar(64),
     lname       varchar(64),
-    passwd      varchar(60),
+    password      varchar(60),
     is_manager  boolean default 0,
     flatID      varchar(10) not null,
     constraint fk_users_flatID
@@ -21,35 +21,32 @@ create table users (
         references flats(flatID)
 );
 
-create table services (
-    name        varchar(256) primary key,
-    period      varchar(11),
-    day         varchar(9),
-    due         date,
-    is_static   boolean default 0,
+create table bills (
+    billID      int auto_increment primary key,
+    name        varchar(256),
+    date        date,
     amount      decimal(13,2) default 0.00,
     flatID      varchar(10) not null,
-    constraint  check_billingCycle
-    check (period in ('daily', 'weekly', 'fortnightly')
-        and day in ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday')),
-    constraint  fk_services_flatID
+    constraint  fk_bills_flatID
     foreign key (flatID)
         references flats(flatID)
 );
 
-create table payments (
-    paymentID   int primary key auto_increment,
-    amount      decimal(13,2) default 0.00,
-    verified    boolean default 0,
-    user_from   varchar(128) not null,
-    service_for varchar(256) not null,
-    constraint fk_userFrom
-    foreign key (user_from)
-        references users(email),
-    constraint fk_serviceFor
-    foreign key (service_for)
-        references services(name)
+create table bill_status (
+    statusID    int auto_increment primary key,
+    billID      int not null,
+    userEmail   varchar(128) not null,
+    status      varchar(7),
+    constraint  check_billingCycle
+        check (status in ("due", "pending", "paid", "overdue")),
+    constraint  fk_billstatus_billID
+    foreign key (billID)
+        references bills(billID),
+    constraint  fk_billstatus_userEmail
+    foreign key (userEmail)
+        references users(email)
 );
 
 insert into flats values ("sldjfl", "123 Fake St");
 insert into users values ("ejpfraser@gmail.com", "Ethan", "Fraser", "$2b$09$n4RT4.6/bXdlPNKHf8O5XujRLZhfbCnmOKATHSWdh8vzYyAcslOoS", 0, "sldjfl");
+insert into users values ("magdeline0512@gmail.com", "Magdeline", "Huang", "$2b$09$n4RT4.6/bXdlPNKHf8O5XujRLZhfbCnmOKATHSWdh8vzYyAcslOoS", 1, "sldjfl");
