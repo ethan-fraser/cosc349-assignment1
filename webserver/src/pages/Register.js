@@ -152,7 +152,7 @@ class Register extends React.Component {
         return (
             <div className="grid place-items-center">
                 <h1 className="text-5xl text-gray-50 font-black text-center py-9">flatbills</h1>
-                <div className="w-max h-96 mx-auto bg-gray-50 rounded-lg shadow-2xl">
+                <div className="w-max h-auto mx-auto bg-gray-50 rounded-lg shadow-2xl">
                     <div>
                         <h3 className="text-2xl text-gray-800 font-semibold text-center pt-7 pb-3">Join flatbills!</h3>
                         <h5 className="text-base text-gray-800 font-semibold text-center pb-4">Create an account to manage your flat bills.</h5><br />
@@ -177,6 +177,7 @@ class Register extends React.Component {
                                     <input type="checkbox"
                                         checked={isFlatManager}
                                         onChange={this.onChange}
+                                        className="ml-2"
                                     ></input>
                                 </label>
                                 {inputFlat}
@@ -194,6 +195,7 @@ class Register extends React.Component {
                                     value={this.state.lastName ? this.state.lastName : ''}
                                     onChange={ (val) => this.setInputValue('lastName', val) }
                                 />
+                                <div className="mt-6"></div>
                                 <SubmitButton
                                     text='Next'
                                     disabled={this.state.buttonDisabled}
