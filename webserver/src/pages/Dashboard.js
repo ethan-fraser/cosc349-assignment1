@@ -1,8 +1,28 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import UserStore 	from '../stores/UserStore';
+import BillCard     from '../components/BillCard';
 
 const API_URL = "http://192.168.2.12:3000";
+
+function Empty(props) {
+    return (
+        <div className="mx-auto">
+            <h5 className="text-center mb-3">You have not set up any services.</h5>
+            <img src='/undraw_not_found_60pq.svg' alt="No input" width="300" height="218.1" className="mx-auto"></img>
+        </div>
+    );
+}
+
+function Bills(pros) {
+    return (
+        <div className="flex justify-start gap-8 px-56">
+            <div><BillCard /></div>
+            <div><BillCard /></div>
+            <div><BillCard /></div>
+        </div>
+    )
+}
 
 class Dashboard extends React.Component {
 
@@ -86,6 +106,15 @@ class Dashboard extends React.Component {
             )
         }
 
+        // Show empty icon if no bills added; Show bill card if bills added
+        const isEmpty = !UserStore.filledService;
+        let display;
+        if (isEmpty) {
+            display = <Empty />;
+        } else {
+            display = <Bills />;
+        }
+
         // If user is logged in, go to dashboard
         return (
             <div className="bg-gray-50 min-h-screen">
@@ -98,17 +127,17 @@ class Dashboard extends React.Component {
                         Logout
                     </button>                
                 </nav>
-                <div className="flex flex-row">
-                    <div className="mx-auto mr-5">
+                <div className="flex flex-row justify-between px-56">
+                    <div>
                         <h3 className="text-2xl text-gray-800 font-semibold text-left py-7">Welcome to {UserStore.flatName},<br/>{UserStore.firstName}!</h3>
                         <Link to="/serviceform">
                             <button className="font-semibold text-white bg-blue-400 hover:bg-blue-300 rounded py-5 px-10 inline-flex items-center">
                                 <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/></svg>
-                                Setup a service
+                                Add a New Bill
                             </button>
                         </Link>
                     </div>
-                    <div className="bg-gray-50 rounded-lg shadow-lg ml-20 mt-10 py-5 px-5 border mx-auto">
+                    <div className="bg-gray-50 rounded-lg shadow-lg py-5 px-5 border mt-10">
                         <h5 className="text-base text-gray-800 font-semibold text-center pb-4">You have $0.00 bills to pay.</h5>
                         <div className="flex flex-row">
                             <h5 className="bg-green-200 rounded py-3 px-7 mx-3">$0.00 paid</h5>
@@ -117,8 +146,9 @@ class Dashboard extends React.Component {
                     </div>
                 </div>
                 <div className="my-10">
-                    <h5 className="text-center mb-3">You have not set up any services.</h5>
-                    <img src='/undraw_not_found_60pq.svg' alt="No input" width="300" height="218.1" className="mx-auto"></img>
+                    {display}
+                    {/* <h5 className="text-center mb-3">You have not set up any services.</h5>
+                    <img src='/undraw_not_found_60pq.svg' alt="No input" width="300" height="218.1" className="mx-auto"></img> */}
                 </div>
             </div>
         );
