@@ -16,7 +16,7 @@ function Empty(props) {
 
 function Bills(pros) {
     return (
-        <div className="flex justify-start gap-8 px-56">
+        <div className="flex justify-start gap-16 px-48">
             <div><BillCard /></div>
             <div><BillCard /></div>
             <div><BillCard /></div>
@@ -107,7 +107,7 @@ class Dashboard extends React.Component {
         }
 
         // Show empty icon if no bills added; Show bill card if bills added
-        const isEmpty = !UserStore.filledService;
+        const isEmpty = UserStore.filledService;
         let display;
         if (isEmpty) {
             display = <Empty />;
@@ -127,7 +127,7 @@ class Dashboard extends React.Component {
                         Logout
                     </button>                
                 </nav>
-                <div className="flex flex-row justify-between px-56">
+                <div className="flex flex-row justify-between px-48">
                     <div>
                         <h3 className="text-2xl text-gray-800 font-semibold text-left py-7">Welcome to {UserStore.flatName},<br/>{UserStore.firstName}!</h3>
                         <Link to="/serviceform">
@@ -140,8 +140,9 @@ class Dashboard extends React.Component {
                     <div className="bg-gray-50 rounded-lg shadow-lg py-5 px-5 border mt-10">
                         <h5 className="text-base text-gray-800 font-semibold text-center pb-4">You have $0.00 bills to pay.</h5>
                         <div className="flex flex-row">
-                            <h5 className="bg-green-200 rounded py-3 px-7 mx-3">$0.00 paid</h5>
-                            <h5 className="bg-red-200 rounded py-3 px-7 mx-3">$0.00 left</h5>
+                            <h5 className="bg-green-200 rounded py-3 px-7 mx-3">$0.00 pending</h5>
+                            <h5 className="bg-yellow-200 rounded py-3 px-7 mx-3">$0.00 due</h5>
+                            <h5 className="bg-red-200 rounded py-3 px-7 mx-3">$0.00 overdue</h5>
                         </div>
                     </div>
                 </div>
