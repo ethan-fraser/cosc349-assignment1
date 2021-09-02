@@ -83,12 +83,15 @@ class Register extends React.Component {
         if (!this.state.lastName) {
 			return;
 		}
-        if (!this.state.flatName) {
-			return;
-		}
-        if (!this.state.flatCode) {
-			return;
-		}
+        if (this.isFlatManager) {
+            if (!this.state.flatName) {
+                return;
+            }
+        } else {
+            if (!this.state.flatCode) {
+                return;
+            }
+        }
 
         // Set button's state to true
 		this.setState({

@@ -72,9 +72,10 @@ class ServiceForm extends React.Component {
 			let result = await res.json();
 			if (result && result.success) {
 				UserStore.bills.add({
-                    name: this.state.billName,
-                    date: this.state.billDate,
-                    amount: this.state.billAmount,
+                    id: result.id,
+                    name: result.billName,
+                    date: result.billDate,
+                    amount: result.billAmount,
                 })
                 this.setState({ filledService: true})
 			} else if (result && result.success === false) {
