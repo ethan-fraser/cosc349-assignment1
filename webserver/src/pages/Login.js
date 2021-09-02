@@ -151,7 +151,7 @@ class Login extends React.Component {
                         />
                     </div>
                 </div>
-                <h5 className="text-base text-gray-50 font-regular text-center my-3">Don't have an account? Register <Link to="/registerselect" className="underline">here</Link>.</h5>
+                <h5 className="text-base text-gray-50 font-regular text-center my-3">Don't have an account? Register <Link to="/register" className="underline">here</Link>.</h5>
             </div>
         );
     }

@@ -1,5 +1,11 @@
 import { extendObservable } from 'mobx';
 
+class Bill {
+    name = '';
+    date = '';
+    amount = 0;
+}
+
 /**
  * UserStore
  */
@@ -14,6 +20,7 @@ class UserStore {
             email: '',
             flatName: '',
             flatCode: '',
+            bills: [],
             billName: '',
             billDate: '',
             billAmount: 0,

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import InputField 	from '../components/InputField';
 import SubmitButton from '../components/SubmitButton';
 import UserStore 	from '../stores/UserStore';
-import Dashboard    from './Dashboard';
+//import Dashboard    from './Dashboard';
 
 const API_URL = "http://192.168.2.12:3000";
 
@@ -71,9 +71,11 @@ class ServiceForm extends React.Component {
 			});
 			let result = await res.json();
 			if (result && result.success) {
-				UserStore.billName = result.billName;
-                UserStore.billDate = result.billDate;
-                UserStore.billAmount = result.billAmount;
+				UserStore.bills.add({
+                    name: this.state.billName,
+                    date: this.state.billDate,
+                    amount: this.state.billAmount,
+                })
                 this.setState({ filledService: true})
 			} else if (result && result.success === false) {
 				this.resetForm();
@@ -89,9 +91,7 @@ class ServiceForm extends React.Component {
         // If service form is filled, go back to dashboard
         if (this.state.filledService) {
             return (
-                <div>
-					<Dashboard />
-			    </div>
+                <Redirect to="/dashboard" />
             )
         }
 

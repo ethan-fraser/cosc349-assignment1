@@ -2,13 +2,14 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 //import Home from './pages/Home';
 import Login from './pages/Login';
-import RegisterSelect from './pages/RegisterSelect';
-import RegisterManager from './pages/RegisterManager';
-import RegisterMember from './pages/RegisterMember';
+import Register from './pages/Register';
+// import RegisterSelect from './pages/RegisterSelect';
+// import RegisterManager from './pages/RegisterManager';
+// import RegisterMember from './pages/RegisterMember';
 import Dashboard from './pages/Dashboard';
 import ServiceForm from './pages/ServiceForm';
 import { observer } from 'mobx-react';
-import UserStore 	from './stores/UserStore';
+// import UserStore 	from './stores/UserStore';
 
 const API_URL = "http://192.168.2.12:3000";
 
@@ -73,7 +74,10 @@ class Routes extends React.Component {
                 <Route path="/login">
                     <Login />
                 </Route>
-                <Route path="/registerselect">
+                <Route path="/register">
+                    <Register />
+                </Route>
+                {/* <Route path="/registerselect">
                     <RegisterSelect />
                 </Route>
                 <Route path="/registermanager">
@@ -81,7 +85,7 @@ class Routes extends React.Component {
                 </Route>
                 <Route path="/registermember">
                     <RegisterMember />
-                </Route>
+                </Route> */}
                 <Route path="/serviceform">
                     <ServiceForm />
                 </Route>
