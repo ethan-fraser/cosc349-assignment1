@@ -114,17 +114,17 @@ class ServiceForm extends React.Component {
                             />
 
                             <InputField
-                                type='date'
-                                placeholder='Bill due date'
-                                value={this.state.billDate ? this.state.billDate : ''}
-                                onChange={ (val) => this.setInputValue('billDate', val) }
-                            />
-
-                            <InputField
                                 type='number'
                                 placeholder='Bill amount'
                                 value={this.state.billAmount ? this.state.billAmount : ''}
                                 onChange={ (val) => this.setInputValue('billAmount', val) }
+                            />
+
+                            <InputField
+                                type='date'
+                                placeholder='Bill due date'
+                                value={this.state.billDate ? this.state.billDate : ''}
+                                onChange={ (val) => this.setInputValue('billDate', val) }
                             />
 
                             <SubmitButton
