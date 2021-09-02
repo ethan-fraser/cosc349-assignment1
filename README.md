@@ -18,6 +18,9 @@ https://www.virtualbox.org/wiki/Downloads
     Download and install from https://www.vagrantup.com/downloads, or install with your distro's package manager.
     - **Windows**\
     Download and install from https://www.vagrantup.com/downloads.
+- *Enable virtualisation on your computer*
+    - **Windows**\
+    Instructions [here](https://www.youtube.com/watch?v=MOuTxfzCvMY)
 
 ### Running the servers
 - *Clone the repository*\
