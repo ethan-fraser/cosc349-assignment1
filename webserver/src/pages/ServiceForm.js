@@ -104,25 +104,25 @@ class ServiceForm extends React.Component {
                 </nav>
                 <div className="flex flex-row pt-10 items-center">
                     <div className="mx-auto mr-1">
-                        <h3 className="text-2xl text-gray-800 font-semibold text-left py-3 px-3">Add a New Service</h3>
+                        <h3 className="text-2xl text-gray-800 font-semibold text-left py-3 px-3">Add a New Bill</h3>
                         <div className="text-base text-gray-800 font-regular text-center">
                             <InputField 
                                 type='text'
-                                placeholder='Service bill name eg WiFi'
+                                placeholder='Bill name eg WiFi'
                                 value={this.state.billName ? this.state.billName : ''}
                                 onChange={ (val) => this.setInputValue('billName', val) }
                             />
 
                             <InputField
                                 type='date'
-                                placeholder='Service bill due date'
+                                placeholder='Bill due date'
                                 value={this.state.billDate ? this.state.billDate : ''}
                                 onChange={ (val) => this.setInputValue('billDate', val) }
                             />
 
                             <InputField
                                 type='number'
-                                placeholder='Service bill amount'
+                                placeholder='Bill amount'
                                 value={this.state.billAmount ? this.state.billAmount : ''}
                                 onChange={ (val) => this.setInputValue('billAmount', val) }
                             />
@@ -132,6 +132,12 @@ class ServiceForm extends React.Component {
                                 disabled={this.state.buttonDisabled}
                                 onClick={ () => this.doDone() }
                             />
+
+                            <Link to="/dashboard">
+                                <button className="font-semibold text-white bg-gray-300 hover:bg-gray-200 rounded w-64 py-3 px-3 my-3">
+                                    Cancel
+                                </button>
+                            </Link>
                         </div>
                     </div>
                     <img src='/undraw_transfer_money_rywa.svg' alt="No input" width="300" height="218.1" className="mx-auto"></img>
