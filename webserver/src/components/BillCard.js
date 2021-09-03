@@ -9,22 +9,20 @@ function MemberPayButton(props) {
 }
 
 function ManagerList(props) {
-    let list = [];
-    for (var i = 0; i < props.billcard.state.flatMembers.length; i++) {
-        list += <div className="flex flex-row mb-3">
-                    <div>
-                        <h5 className="text-sm text-gray-800 text-left font-semibold">Magdeline</h5>
-                        <h5 className="text-sm text-gray-800 text-left">Pay $400</h5>
-                    </div>
-                    <button className="text-sm font-semibold text-gray-800 shadow-xl bg-white hover:bg-yellow-50 rounded w-16 h-5 ml-12 mt-4">Pay</button>
-                </div>
-    }
 
     return (
         <div className="border-t border-gray-800 pt-3">
-            {list}
+            {props.members.map((member) => (
+                <div className="flex flex-row mb-3">
+                    <div>
+                        <h5 className="text-sm text-gray-800 text-left font-semibold">{member.name}</h5>
+                        <h5 className="text-sm text-gray-800 text-left">Pay ${member.amount}</h5>
+                    </div>
+                    <button className="text-sm font-semibold text-gray-800 shadow-xl bg-white hover:bg-yellow-50 rounded w-16 h-5 ml-12 mt-4">{member.btn_label}</button>
+                </div>
+            ))}
         </div>
-    )
+    );
 }
 
 class BillCard extends React.Component {
@@ -36,9 +34,25 @@ class BillCard extends React.Component {
             billName: '',
             billAmount: 0,
             billDate: '',
-            flatMembers: [0,0,0],
+            flatMembers: [{
+                name: "Magdeline",
+                amount: "200",
+                btn_label: "Pay"
+            },
+            {
+                name: "Ethan",
+                amount: "200",
+                btn_label: "Pay"
+            }],
 		}
+
 	}
+
+    asnyc componentDidMount() {
+        // access the api, asking for all the members in the flat with flatCode
+        // also get the bill associated with this card (bill.amount / flatMembers.length)
+        // for each of those members, add an object to this.state.flatMembers with their info
+    }
 
 	render() {
 
@@ -53,7 +67,7 @@ class BillCard extends React.Component {
         // Show ManagerList only for manager
         let ManagerDisplay;
         if (!this.state.isManager) {
-            ManagerDisplay = <ManagerList billcard={this} />;
+            ManagerDisplay = <ManagerList members={this.state.flatMembers} />;
         } else {
             ManagerDisplay = null;
         }
