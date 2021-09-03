@@ -107,12 +107,24 @@ class Dashboard extends React.Component {
         }
 
         // Show empty icon if no bills added; Show bill card if bills added
-        const isEmpty = UserStore.filledService;
         let display;
-        if (isEmpty) {
+        if (UserStore.bills.length === 0) {
             display = <Empty />;
         } else {
             display = <Bills />;
+        }
+
+        // Show bill button if flat manager; Hide bill button if flat member
+        let billButton;
+        if (UserStore.isManager) {
+            billButton = <Link to="/serviceform">
+                            <button className="font-semibold text-white bg-blue-400 hover:bg-blue-300 rounded py-5 px-10 inline-flex items-center">
+                                <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/></svg>
+                                Add a New Bill
+                            </button>
+                        </Link>;
+        } else {
+            billButton = null;
         }
 
         // If user is logged in, go to dashboard
@@ -130,12 +142,7 @@ class Dashboard extends React.Component {
                 <div className="flex flex-row justify-between px-48">
                     <div>
                         <h3 className="text-2xl text-gray-800 font-semibold text-left py-7">Welcome to {UserStore.flatName},<br/>{UserStore.firstName}!</h3>
-                        <Link to="/serviceform">
-                            <button className="font-semibold text-white bg-blue-400 hover:bg-blue-300 rounded py-5 px-10 inline-flex items-center">
-                                <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/></svg>
-                                Add a New Bill
-                            </button>
-                        </Link>
+                        {billButton}
                     </div>
                     <div className="bg-gray-50 rounded-lg shadow-lg py-5 px-5 border mt-10">
                         <h5 className="text-base text-gray-800 font-semibold text-center pb-4">You have $0.00 bills to pay.</h5>

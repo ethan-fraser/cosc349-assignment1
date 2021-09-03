@@ -114,16 +114,18 @@ class Register extends React.Component {
                     lastName: this.state.lastName,
                     flatName: this.state.flatName,
                     flatCode: this.state.flatCode,
+                    isFlatManager: this.state.isFlatManager,
 				})
 			});
 			let result = await res.json();
 			if (result && result.success) {
 				UserStore.isLoggedIn = true;
 				UserStore.email = result.email;
-                UserStore.firstName = result.firstName;
-                UserStore.lastName = result.lastName;
+                UserStore.firstName = result.fname;
+                UserStore.lastName = result.lname;
                 UserStore.flatName = result.flatName;
                 UserStore.flatCode = result.flatCode;
+                UserStore.isManager = result.is_manager;
 			} else if (result && result.success === false) {
 				this.resetForm();
 				alert(result.msg);
