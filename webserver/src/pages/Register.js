@@ -3,7 +3,6 @@ import { Link, Redirect } from 'react-router-dom';
 import InputField 	from '../components/InputField';
 import SubmitButton from '../components/SubmitButton';
 import UserStore 	from '../stores/UserStore';
-//import Dashboard    from './Dashboard';
 
 const API_URL = "http://192.168.2.12:3000";
 
@@ -60,7 +59,8 @@ class Register extends React.Component {
             lastName: '',
             flatName: '',
             flatCode: '',
-			buttonDisabled: false
+			buttonDisabled: false,
+            isFlatManager: false
 		})
 	}
 
@@ -83,7 +83,7 @@ class Register extends React.Component {
         if (!this.state.lastName) {
 			return;
 		}
-        if (this.isFlatManager) {
+        if (this.state.isFlatManager) {
             if (!this.state.flatName) {
                 return;
             }
@@ -100,7 +100,7 @@ class Register extends React.Component {
 
         // API calls to the dbserver
 		try {
-			let res = await fetch(API_URL + '/registermanager', {
+			let res = await fetch(API_URL + '/registerUser', {
 				method: 'post',
 				headers: {
 					'Accept': 'application/json',
@@ -119,6 +119,7 @@ class Register extends React.Component {
 			});
 			let result = await res.json();
 			if (result && result.success) {
+                this.setState({ isLoggedIn: true })
 				UserStore.isLoggedIn = true;
 				UserStore.email = result.email;
                 UserStore.firstName = result.fname;

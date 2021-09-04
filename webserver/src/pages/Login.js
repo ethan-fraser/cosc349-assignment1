@@ -99,6 +99,7 @@ class Login extends React.Component {
 				UserStore.email = result.email;
                 UserStore.firstName = result.fname;
                 UserStore.lastName = result.lname;
+                UserStore.flatName = result.flatName;
                 this.setState({isLoggedIn: true});
 			// If user is not successfully logged in
 			} else if (result && result.success === false) {
@@ -114,7 +115,6 @@ class Login extends React.Component {
 	}
 
     render() {
-        console.log("rendering")
 		if (this.state.isLoggedIn) {
             return (
                 <Redirect to="/dashboard" />

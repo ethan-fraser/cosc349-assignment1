@@ -55,6 +55,7 @@ class Dashboard extends React.Component {
 				UserStore.email = result.email;
                 UserStore.firstName = result.fname;
                 UserStore.lastName = result.lname;
+                UserStore.flatName = result.flatName;
 			} else {
 				//UserStore.loading = false;
                 this.setState({isLoggedIn: false})

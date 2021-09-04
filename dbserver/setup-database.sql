@@ -1,4 +1,4 @@
-drop table if exists billStatus;
+drop table if exists bill_status;
 drop table if exists users;
 drop table if exists bills;
 drop table if exists flats;
