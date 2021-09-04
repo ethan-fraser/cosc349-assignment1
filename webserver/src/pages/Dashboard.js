@@ -18,7 +18,9 @@ function Bills(props) {
     return (
         <div className="flex justify-start gap-16 px-48">
             { props.bills.map( bill => (
-                <div><BillCard billID={bill.billID}/></div>
+                <div>
+                    <BillCard bill={bill}/>
+                </div>
             ))}
         </div>
     )
@@ -71,7 +73,7 @@ class Dashboard extends React.Component {
 		}
 
         try {
-            let res = await fetch(API_URL + "/bills", {
+            let res = await fetch(API_URL + "/billInfo", {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',
@@ -79,17 +81,19 @@ class Dashboard extends React.Component {
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                    flatCode: UserStore.flatCode
+                    flatCode: UserStore.flatCode,
+                    isManager: UserStore.isManager,
+                    firstName: UserStore.firstName
                 })
             })
             let result = await res.json()
             if (result && result.success){
-                this.setState({bills: result.bills})
+                this.setState({bills: result.billsInfo})
             } else {
                 console.log(result)
             }
         } catch (e) {
-            console.error("Could not get bills")
+            console.error(e)
         }
 	}
 
@@ -120,6 +124,38 @@ class Dashboard extends React.Component {
 		}
 	}
 
+    calculateSummaryAmounts() {
+        const findMember = (member) => {
+            return member.name === UserStore.firstName
+        }
+        let result = {
+            pending: 0,
+            due: 0,
+            overdue: 0
+        }
+        this.state.bills.forEach(bill => {
+            if (UserStore.isManager){
+                bill = {
+                    status: bill.members.find(findMember).status,
+                    amount: bill.members.find(findMember).amount
+                }
+            }
+            console.log(bill)
+            if (bill.status === "pending") {
+                result.pending += bill.amount
+            } else if (bill.status === "due") {
+                result.due += bill.amount
+            } else if (bill.status === "overdue") {
+                result.overdue += bill.amount
+            }
+        })
+        result.total = (result.pending + result.due + result.overdue).toFixed(2)
+        result.pending = result.pending.toFixed(2)
+        result.due = result.due.toFixed(2)
+        result.overdue = result.overdue.toFixed(2)
+        return result
+    }
+
     render() {
         // If user is logged out, go to login page
         if (!this.state.isLoggedIn) {
@@ -149,6 +185,9 @@ class Dashboard extends React.Component {
             billButton = null;
         }
 
+        // Calculate the amounts for the summary section
+        let summary = this.calculateSummaryAmounts()
+
         // If user is logged in, go to dashboard
         return (
             <div className="bg-gray-50 min-h-screen">
@@ -167,11 +206,11 @@ class Dashboard extends React.Component {
                         {billButton}
                     </div>
                     <div className="bg-gray-50 rounded-lg shadow-lg py-5 px-5 border mt-10">
-                        <h5 className="text-base text-gray-800 font-semibold text-center pb-4">You have $0.00 bills to pay.</h5>
+                        <h5 className="text-base text-gray-800 font-semibold text-center pb-4">You have ${summary.total} bills to pay.</h5>
                         <div className="flex flex-row">
-                            <h5 className="bg-green-200 rounded py-3 px-7 mx-3">$0.00 pending</h5>
-                            <h5 className="bg-yellow-200 rounded py-3 px-7 mx-3">$0.00 due</h5>
-                            <h5 className="bg-red-200 rounded py-3 px-7 mx-3">$0.00 overdue</h5>
+                            <h5 className="bg-green-200 rounded py-3 px-7 mx-3">${summary.pending} pending</h5>
+                            <h5 className="bg-yellow-200 rounded py-3 px-7 mx-3">${summary.due} due</h5>
+                            <h5 className="bg-red-200 rounded py-3 px-7 mx-3">${summary.overdue} overdue</h5>
                         </div>
                     </div>
                 </div>

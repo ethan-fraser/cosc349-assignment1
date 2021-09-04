@@ -15,7 +15,6 @@ class Router {
         this.logout(app, db);
         this.isLoggedIn(app, db);
         this.registerUser(app, db);
-        this.bills(app, db);
         this.billInfo(app, db);
         this.createService(app, db);
     }
@@ -313,32 +312,6 @@ class Router {
         })
     }
 
-    bills(app, db) {
-        app.post('/bills', (req, res) => {
-            let flatID = req.body.flatCode
-            this.getBillsByFlatID(db, [flatID])
-                .then(data => {
-                    res.json({
-                        success: true,
-                        bills: data.map(bill => {
-                            return {
-                                billID: bill.billID,
-                                name: bill.name,
-                                due: bill.due,
-                                amount: bill.amount
-                            }
-                        })
-                    })
-                })
-                .catch(err => {
-                    res.json({
-                        success: false,
-                        msg: "Could not get bills: " + err.message
-                    })
-                })
-        })
-    }
-
     getBillByBillID(db, params) {
         return new Promise((resolve, reject) => {
             db.query('SELECT name, DATE_FORMAT(due, "%d %M %Y") date, amount FROM bills WHERE billID = ?', params, (err, data) => {
@@ -367,12 +340,8 @@ class Router {
         })
     }
 
-    billInfo(app, db) {
-        app.post('/billInfo', (req, res) => {
-            let billID = req.body.billID
-            let flatID = req.body.flatCode
-            let is_manager = req.body.isManager
-
+    getBillInfo(db, billID, flatID, is_manager, userFName) {
+        return new Promise((resolve, reject) => {
             this.getMembersAndBillStatusesByFlatIDAndBillID(db, [flatID, billID])
                 .then(members => {
                     this.getBillByBillID(db, [billID])
@@ -386,34 +355,81 @@ class Router {
                                         status: member.status
                                     })
                                 })
-                                res.json({
-                                    success: true,
+                                resolve({
+                                    billID: bill.billID,
                                     name: bill.name,
-                                    due: bill.date,
+                                    due: bill.due,
                                     amount: bill.amount,
                                     members: membersInfo,
                                 })
                             } else {
-                                res.json({
-                                    success: true,
+                                let status = members.find(member => { return member.fname === userFName}).status
+                                resolve({
+                                    billID: bill.billID,
                                     name: bill.name,
                                     due: bill.date,
                                     amount: +((bill.amount / members.length).toFixed(2)),
-                                    members: []
+                                    members: [],
+                                    status: status
                                 })
                             }
                         })
                         .catch(err => {
-                            res.json({
-                                success: false,
-                                msg: "Could not get bill: " + err
-                            })
+                            reject(err)
                         })
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
+    }
+
+    getAllBillsInfo(db, flatID, is_manager, userFName) {
+        return new Promise((resolve, reject) => {
+            this.getBillsByFlatID(db, [flatID])
+                .then(bills => {
+                    let allBillsInfo = []
+                    let forEachPromise = new Promise((res, rej) => {
+                        bills.forEach(bill => {
+                            this.getBillInfo(db, bill.billID, flatID, is_manager, userFName)
+                                .then(billInfo => { 
+                                    allBillsInfo.push(billInfo)
+                                    if (allBillsInfo.length == bills.length) {
+                                        res()
+                                    }
+                                })
+                                .catch(err => {
+                                    rej(err)
+                                })
+                        })
+                    })
+                    forEachPromise.then(() => {
+                        resolve(allBillsInfo)
+                    })
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
+    }
+
+    billInfo(app, db) {
+        app.post('/billInfo', (req, res) => {
+            let flatID = req.body.flatCode
+            let is_manager = req.body.isManager
+            let userFName = req.body.firstName
+
+            this.getAllBillsInfo(db, flatID, is_manager, userFName)
+                .then(billsInfo => {
+                    res.json({
+                        success: true,
+                        billsInfo: billsInfo
+                    })
                 })
                 .catch(err => {
                     res.json({
                         success: false,
-                        msg: "Could not get flat members: " + err
+                        msg: "Could not get bill info: " + err
                     })
                 })
         })

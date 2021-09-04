@@ -44,52 +44,11 @@ class BillCard extends React.Component {
     constructor(props) {
 		super(props);
 		this.state = {
-            billID: props.billID,
-            billName: '',
-            billAmount: 0,
-            billDate: '',
-            flatMembers: [],
-		}
-	}
-
-    // API calls to get info for flatMembers
-	async componentDidMount() {
-		try {
-			let res = await fetch(API_URL + '/billInfo', {
-				method: 'post',
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				},
-                credentials: 'include',
-                body: JSON.stringify({
-                    billID: this.state.billID,
-					flatCode: UserStore.flatCode,
-                    userEmail: UserStore.email,
-                    isManager: UserStore.isManager
-				})
-			});
-
-			let result = await res.json(); // The result from res variable
-
-			// If user is successfully logged in
-			if (result && result.success) {
-                this.setState({
-                    billName: result.name,
-                    billAmount: result.amount,
-                    billDate: result.due,
-                    flatMembers: result.members
-                })
-			} else {
-                console.log(result)
-				// //UserStore.loading = false;
-                // this.setState({isLoggedIn: false})
-				// UserStore.isLoggedIn = false;
-			}
-		} catch(e) {
-			// //UserStore.loading = false;
-            // this.setState({isLoggedIn: false});
-			// UserStore.isLoggedIn = false;
+            billID: props.bill.billID,
+            billName: props.bill.name,
+            billAmount: props.bill.amount,
+            billDate: props.bill.due,
+            flatMembers: props.bill.members,
 		}
 	}
 
