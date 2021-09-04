@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import InputField 	from '../components/InputField';
 import SubmitButton from '../components/SubmitButton';
-import UserStore 	from '../stores/UserStore';
 
 const API_URL = "http://192.168.2.12:3000";
 
@@ -95,7 +94,6 @@ class Login extends React.Component {
 
 			// If user is successfully logged in
 			if (result && result.success) {
-				UserStore.isLoggedIn = true;
                 this.setState({isLoggedIn: true});
 			// If user is not successfully logged in
 			} else if (result && result.success === false) {

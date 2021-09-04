@@ -17,6 +17,7 @@ class Router {
         this.registerUser(app, db);
         this.bills(app, db);
         this.billInfo(app, db);
+        this.createService(app, db);
     }
 
     getFlatNameByID(db, id){
@@ -412,7 +413,122 @@ class Router {
                 .catch(err => {
                     res.json({
                         success: false,
-                        msg: "Could not get flat members: " + err.message
+                        msg: "Could not get flat members: " + err
+                    })
+                })
+        })
+    }
+
+    getMemberEmailsByFlatID(db, params) {
+        return new Promise((resolve, reject) => {
+            db.query('SELECT email FROM users WHERE flatID = ?', params, (err, data) => {
+                if (err) {
+                    reject(err)
+                }
+                if (data && data.length > 0) {
+                    resolve(data)
+                } else {
+                    reject("No member information")
+                }
+            })
+        })
+    }
+
+    getFlatIDByUserEmail(db, params) {
+        return new Promise((resolve, reject) => {
+            db.query('SELECT flatID FROM users WHERE email = ? LIMIT 1', params, (err, data) => {
+                if (err) {
+                    reject(err)
+                }
+                if (data && data.length === 1) {
+                    resolve(data[0].flatID)
+                } else {
+                    reject("Could not get flatID")
+                }
+            })
+        })
+    }
+
+    createBill(db, params) {
+        return new Promise((resolve, reject) => {
+            db.query('INSERT INTO bills VALUES (null, ?, ?, ?, ?)', params, (err) => {
+                if (err) {
+                    reject(err)
+                }
+                db.query('SELECT LAST_INSERT_ID()', (err, data) => {
+                    if (err) {
+                        reject(err)
+                    }
+                    if (data && data.length === 1) {
+                        resolve(data[0]["LAST_INSERT_ID()"])
+                    } else {
+                        reject("Could not get last insert ID")
+                    }
+                })
+            })
+        })
+    }
+
+    createStatusesForNewBill(db, billID, flatID) {
+        return new Promise((resolve, reject) => {
+            this.getMemberEmailsByFlatID(db, [flatID])
+                .then(userEmails => {
+                    userEmails.forEach(userEmail => {
+                        db.query('INSERT INTO bill_status VALUES (null, ?, ?, "due")', [billID, userEmail.email], (err) => {
+                            if (err) {
+                                reject(err)
+                            }
+                        })
+                    })
+                    resolve()
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
+    }
+
+    createService(app, db) {
+        app.post('/createService', (req, res) => {
+            let params = [
+                req.body.billName,
+                req.body.billDate,
+                req.body.billAmount
+            ]
+            let userEmail = req.session.email
+            this.getFlatIDByUserEmail(db, [userEmail])
+                .then(flatID => {
+                    params.push(flatID)
+                    this.createBill(db, params)
+                        .then(billID => {
+                            this.createStatusesForNewBill(db, billID, flatID)
+                                .then(() => {
+                                    res.json({
+                                        success: true,
+                                        billName: params[0],
+                                        billDate: params[1],
+                                        billAmount: params[2],
+                                        billID: billID
+                                    })
+                                })
+                                .catch(err => {
+                                    res.json({
+                                        success: false,
+                                        msg: "Could not create statuses: " + err
+                                    })
+                                })
+                        })
+                        .catch(err => {
+                            res.json({
+                                success: false,
+                                msg: "Could not create bill: " + err.message
+                            })
+                        })
+                })
+                .catch(err => {
+                    res.json({
+                        success: false,
+                        msg: "Could not get flatID"
                     })
                 })
         })

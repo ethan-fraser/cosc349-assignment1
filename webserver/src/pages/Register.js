@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import InputField 	from '../components/InputField';
 import SubmitButton from '../components/SubmitButton';
-import UserStore 	from '../stores/UserStore';
 
 const API_URL = "http://192.168.2.12:3000";
 
@@ -120,7 +119,6 @@ class Register extends React.Component {
 			let result = await res.json();
 			if (result && result.success) {
                 this.setState({ isLoggedIn: true })
-				UserStore.isLoggedIn = true;
 			} else if (result && result.success === false) {
 				this.resetForm();
 				alert(result.msg);

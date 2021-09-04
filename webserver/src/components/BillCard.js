@@ -50,7 +50,6 @@ class BillCard extends React.Component {
             billDate: '',
             flatMembers: [],
 		}
-
 	}
 
     // API calls to get info for flatMembers

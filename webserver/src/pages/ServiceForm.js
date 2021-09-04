@@ -2,8 +2,6 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import InputField 	from '../components/InputField';
 import SubmitButton from '../components/SubmitButton';
-import UserStore 	from '../stores/UserStore';
-//import Dashboard    from './Dashboard';
 
 const API_URL = "http://192.168.2.12:3000";
 
@@ -56,7 +54,7 @@ class ServiceForm extends React.Component {
 
         // API calls to dbserver
 		try {
-			let res = await fetch(API_URL + '/service', {
+			let res = await fetch(API_URL + '/createService', {
 				method: 'post',
 				headers: {
 					'Accept': 'application/json',
@@ -66,17 +64,11 @@ class ServiceForm extends React.Component {
 				body: JSON.stringify({
 					billName: this.state.billName,
 					billDate: this.state.billDate,
-                    billAmount: this.state.billAmount,
+                    billAmount: this.state.billAmount
 				})
 			});
 			let result = await res.json();
 			if (result && result.success) {
-				UserStore.bills.add({
-                    id: result.id,
-                    name: result.billName,
-                    date: result.billDate,
-                    amount: result.billAmount,
-                })
                 this.setState({ filledService: true})
 			} else if (result && result.success === false) {
 				this.resetForm();
