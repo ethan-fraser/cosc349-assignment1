@@ -14,12 +14,12 @@ function Empty(props) {
     );
 }
 
-function Bills(pros) {
+function Bills(props) {
     return (
         <div className="flex justify-start gap-16 px-48">
-            <div><BillCard /></div>
-            <div><BillCard /></div>
-            <div><BillCard /></div>
+            { props.bills.map( bill => (
+                <div><BillCard billID={bill.billID}/></div>
+            ))}
         </div>
     )
 }
@@ -29,7 +29,8 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoggedIn: true
+            isLoggedIn: true,
+            bills: []
         }
     }
 
@@ -56,6 +57,8 @@ class Dashboard extends React.Component {
                 UserStore.firstName = result.fname;
                 UserStore.lastName = result.lname;
                 UserStore.flatName = result.flatName;
+                UserStore.flatCode = result.flatID;
+                UserStore.isManager = result.is_manager;
 			} else {
 				//UserStore.loading = false;
                 this.setState({isLoggedIn: false})
@@ -66,6 +69,28 @@ class Dashboard extends React.Component {
             this.setState({isLoggedIn: false});
 			UserStore.isLoggedIn = false;
 		}
+
+        try {
+            let res = await fetch(API_URL + "/bills", {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+					'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    flatCode: UserStore.flatCode
+                })
+            })
+            let result = await res.json()
+            if (result && result.success){
+                this.setState({bills: result.bills})
+            } else {
+                console.log(result)
+            }
+        } catch (e) {
+            console.error("Could not get bills")
+        }
 	}
 
     // Instructions for when logout button is pressed
@@ -89,10 +114,6 @@ class Dashboard extends React.Component {
                 UserStore.lastName = '';
                 UserStore.flatName = '';
                 UserStore.flatCode = '';
-                UserStore.billName = '';
-                UserStore.billDate = '';
-                UserStore.billAmount = 0;
-                UserStore.filledService = false; // Whether or not the service form has been filled
 			}
 		} catch(e) {
 			console.log(e)
@@ -109,10 +130,10 @@ class Dashboard extends React.Component {
 
         // Show empty icon if no bills added; Show bill card if bills added
         let display;
-        if (UserStore.bills.length === 0) {
+        if (this.state.bills.length === 0) {
             display = <Empty />;
         } else {
-            display = <Bills />;
+            display = <Bills bills={this.state.bills} />;
         }
 
         // Show bill button if flat manager; Hide bill button if flat member

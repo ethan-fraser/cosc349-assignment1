@@ -121,12 +121,6 @@ class Register extends React.Component {
 			if (result && result.success) {
                 this.setState({ isLoggedIn: true })
 				UserStore.isLoggedIn = true;
-				UserStore.email = result.email;
-                UserStore.firstName = result.fname;
-                UserStore.lastName = result.lname;
-                UserStore.flatName = result.flatName;
-                UserStore.flatCode = result.flatCode;
-                UserStore.isManager = result.is_manager;
 			} else if (result && result.success === false) {
 				this.resetForm();
 				alert(result.msg);

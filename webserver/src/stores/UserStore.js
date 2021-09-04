@@ -14,7 +14,6 @@ class UserStore {
             email: '',
             flatName: '',
             flatCode: '',
-            bills: [0],
             isManager: false, // flag for if member is a manager
         })
     }

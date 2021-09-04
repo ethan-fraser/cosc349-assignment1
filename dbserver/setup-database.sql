@@ -13,7 +13,7 @@ create table users (
     email       varchar(128) primary key,
     fname       varchar(64),
     lname       varchar(64),
-    password      varchar(60),
+    password    varchar(60),
     is_manager  boolean default 0,
     flatID      varchar(10) not null,
     constraint fk_users_flatID
@@ -24,7 +24,7 @@ create table users (
 create table bills (
     billID      int auto_increment primary key,
     name        varchar(256),
-    date        date,
+    due         date,
     amount      decimal(13,2) default 0.00,
     flatID      varchar(10) not null,
     constraint  fk_bills_flatID
@@ -50,3 +50,9 @@ create table bill_status (
 insert into flats values ("sldjfl", "123 Fake St");
 insert into users values ("ejpfraser@gmail.com", "Ethan", "Fraser", "$2b$09$n4RT4.6/bXdlPNKHf8O5XujRLZhfbCnmOKATHSWdh8vzYyAcslOoS", 0, "sldjfl");
 insert into users values ("magdeline0512@gmail.com", "Magdeline", "Huang", "$2b$09$n4RT4.6/bXdlPNKHf8O5XujRLZhfbCnmOKATHSWdh8vzYyAcslOoS", 1, "sldjfl");
+insert into bills values (null, "Rent", "2021-08-31", 400.00, "sldjfl");
+insert into bills values (null, "Power", "2021-09-30", 69.00, "sldjfl");
+insert into bill_status values (null, 1, "ejpfraser@gmail.com", "pending");
+insert into bill_status values (null, 1, "magdeline0512@gmail.com", "paid");
+insert into bill_status values (null, 2, "ejpfraser@gmail.com", "due");
+insert into bill_status values (null, 2, "magdeline0512@gmail.com", "paid");

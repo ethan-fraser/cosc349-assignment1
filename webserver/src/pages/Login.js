@@ -96,10 +96,6 @@ class Login extends React.Component {
 			// If user is successfully logged in
 			if (result && result.success) {
 				UserStore.isLoggedIn = true;
-				UserStore.email = result.email;
-                UserStore.firstName = result.fname;
-                UserStore.lastName = result.lname;
-                UserStore.flatName = result.flatName;
                 this.setState({isLoggedIn: true});
 			// If user is not successfully logged in
 			} else if (result && result.success === false) {

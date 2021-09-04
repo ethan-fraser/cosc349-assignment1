@@ -14,15 +14,27 @@ function MemberPayButton(props) {
 function ManagerList(props) {
     return (
         <div className="border-t border-gray-800 pt-3">
-            {props.members.map((member) => (
+            {props.members.map((member) => {
+                let btn_label
+                if (member.status === "due" || member.status === "overdue") {
+                    if (member.name === UserStore.firstName){
+                        btn_label = "Pay"
+                    }
+                    btn_label = "(Awaiting payment)"
+                } else if (member.status === "pending") {
+                    btn_label = "Verify"
+                } else {
+                    btn_label = "(Paid)"
+                }
+                return (
                 <div className="flex flex-row justify-between mb-3">
                     <div>
                         <h5 className="text-sm text-gray-800 text-left font-semibold">{member.name}</h5>
                         <h5 className="text-sm text-gray-800 text-left">Pay ${member.amount}</h5>
                     </div>
-                    <button className="text-sm font-semibold text-gray-800 shadow-xl bg-white hover:bg-yellow-50 rounded w-16 h-5 mt-4">{member.btn_label}</button>
+                    <button className="text-sm font-semibold text-gray-800 shadow-xl bg-white hover:bg-yellow-50 rounded w-16 h-5 mt-4">{btn_label}</button>
                 </div>
-            ))}
+            )})}
         </div>
     );
 }
@@ -32,34 +44,19 @@ class BillCard extends React.Component {
     constructor(props) {
 		super(props);
 		this.state = {
-			isManager: false,
+            billID: props.billID,
             billName: '',
             billAmount: 0,
             billDate: '',
-            flatMembers: [{
-                name: "Magdeline",
-                amount: "200",
-                btn_label: "Pay"
-            },
-            {
-                name: "Ethan",
-                amount: "200",
-                btn_label: "Pay"
-            }],
+            flatMembers: [],
 		}
 
 	}
 
-    // asnyc componentDidMount() {
-    //     // access the api, asking for all the members in the flat with flatCode
-    //     // also get the bill associated with this card (bill.amount / flatMembers.length)
-    //     // for each of those members, add an object to this.state.flatMembers with their info
-    // }
-
     // API calls to get info for flatMembers
 	async componentDidMount() {
 		try {
-			let res = await fetch(API_URL + '/getBillInfo', {
+			let res = await fetch(API_URL + '/billInfo', {
 				method: 'post',
 				headers: {
 					'Accept': 'application/json',
@@ -67,8 +64,10 @@ class BillCard extends React.Component {
 				},
                 credentials: 'include',
                 body: JSON.stringify({
+                    billID: this.state.billID,
 					flatCode: UserStore.flatCode,
-					email: UserStore.email
+                    userEmail: UserStore.email,
+                    isManager: UserStore.isManager
 				})
 			});
 
@@ -76,9 +75,14 @@ class BillCard extends React.Component {
 
 			// If user is successfully logged in
 			if (result && result.success) {
-                UserStore.flatCode = result.flatCode;
-                UserStore.email = result.email;
+                this.setState({
+                    billName: result.name,
+                    billAmount: result.amount,
+                    billDate: result.due,
+                    flatMembers: result.members
+                })
 			} else {
+                console.log(result)
 				// //UserStore.loading = false;
                 // this.setState({isLoggedIn: false})
 				// UserStore.isLoggedIn = false;
@@ -94,7 +98,7 @@ class BillCard extends React.Component {
 
         // Show MemberPayButton only for members
         let MemberDisplay;
-        if (!this.state.isManager) {
+        if (!UserStore.isManager) {
             MemberDisplay = <MemberPayButton />;
         } else {
             MemberDisplay = null;
@@ -102,7 +106,7 @@ class BillCard extends React.Component {
 
         // Show ManagerList only for manager
         let ManagerDisplay;
-        if (!this.state.isManager) {
+        if (UserStore.isManager) {
             ManagerDisplay = <ManagerList members={this.state.flatMembers} />;
         } else {
             ManagerDisplay = null;
@@ -111,12 +115,12 @@ class BillCard extends React.Component {
 		return (
 			<div className="w-64 h-auto mx-auto px-10 py-5 bg-yellow-100 rounded-lg shadow-2xl">
                 <div className="flex flex-row justify-between">
-                    <h3 className="text-2xl text-gray-800 font-semibold text-left pt-3 pb-3">Rent</h3>  
+                    <h3 className="text-2xl text-gray-800 font-semibold text-left pt-3 pb-3">{this.state.billName}</h3>  
                     {MemberDisplay}
                 </div>
                 <div className="pb-3">
-                    <h3 className="text-base text-gray-800 font-semibold text-left pt-3">$400</h3>
-                    <h5 className="text-sm text-gray-800 text-left">Due on 31 August 2021</h5>
+                    <h3 className="text-base text-gray-800 font-semibold text-left pt-3">${this.state.billAmount}</h3>
+                    <h5 className="text-sm text-gray-800 text-left">Due on {this.state.billDate}</h5>
                 </div>
                 {ManagerDisplay}
 			</div>
