@@ -145,7 +145,7 @@ class Register extends React.Component {
         }
 
         return (
-            <div className="grid place-items-center">
+            <div className="grid place-items-center body-bg min-h-screen">
                 <h1 className="text-5xl text-gray-50 font-black text-center py-9">flatbills</h1>
                 <div className="w-max h-auto mx-auto bg-gray-50 rounded-lg shadow-2xl">
                     <div>
@@ -160,12 +160,14 @@ class Register extends React.Component {
                                     placeholder='Email'
                                     value={this.state.email ? this.state.email : ''}
                                     onChange={ (val) => this.setInputValue('email', val) }
+                                    tabindex='1'
                                 />
                                 <InputField 
                                     type='text'
                                     placeholder='First Name'
                                     value={this.state.firstName ? this.state.firstName : ''}
                                     onChange={ (val) => this.setInputValue('firstName', val) }
+                                    tabindex='3'
                                 />
                                 <label>
                                     Are you a flat manager?
@@ -173,6 +175,7 @@ class Register extends React.Component {
                                         checked={isFlatManager}
                                         onChange={this.onChange}
                                         className="ml-2"
+                                        tabindex='5'
                                     ></input>
                                 </label>
                                 {inputFlat}
@@ -183,18 +186,21 @@ class Register extends React.Component {
                                     placeholder='Password'
                                     value={this.state.password ? this.state.password : ''}
                                     onChange={ (val) => this.setInputValue('password', val) }
+                                    tabindex='2'
                                 />
                                 <InputField 
                                     type='text'
                                     placeholder='Last Name'
                                     value={this.state.lastName ? this.state.lastName : ''}
                                     onChange={ (val) => this.setInputValue('lastName', val) }
+                                    tabindex='4'
                                 />
                                 <div className="mt-6"></div>
                                 <SubmitButton
                                     text='Next'
                                     disabled={this.state.buttonDisabled}
                                     onClick={ () => this.doNext() }
+                                    tabindex='6'
                                 />
                             </div>
                         </div>

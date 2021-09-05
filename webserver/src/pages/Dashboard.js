@@ -16,7 +16,7 @@ function Empty(props) {
 
 function Bills(props) {
     return (
-        <div className="flex justify-start gap-16 px-48">
+        <div className="flex justify-start px-44 flex-wrap">
             { props.bills.map( bill => (
                 <div>
                     <BillCard bill={bill}/>
@@ -190,7 +190,7 @@ class Dashboard extends React.Component {
 
         // If user is logged in, go to dashboard
         return (
-            <div className="bg-gray-50 min-h-screen">
+            <div>
                 <nav className="bg-blue-400 flex flex-row">
                     <h1 className="text-3xl text-gray-50 font-black text-left py-3 pl-5"><Link to="/dashboard">flatbills</Link></h1>
                     <button

@@ -116,7 +116,7 @@ class Login extends React.Component {
         }
 
         return (
-            <div className="grid place-items-center">
+            <div className="grid place-items-center body-bg min-h-screen">
                 <h1 className="text-5xl text-gray-50 font-black text-center py-9">flatbills</h1>
                 <div className="w-96 h-96 mx-auto bg-gray-50 rounded-lg shadow-2xl">
                     <div>
