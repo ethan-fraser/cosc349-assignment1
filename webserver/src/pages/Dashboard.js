@@ -140,7 +140,6 @@ class Dashboard extends React.Component {
                     amount: bill.members.find(findMember).amount
                 }
             }
-            console.log(bill)
             if (bill.status === "pending") {
                 result.pending += bill.amount
             } else if (bill.status === "due") {
@@ -188,6 +187,13 @@ class Dashboard extends React.Component {
         // Calculate the amounts for the summary section
         let summary = this.calculateSummaryAmounts()
 
+        let pendingLabel
+        if (!UserStore.isManager){
+            pendingLabel = <h5 className="bg-green-200 rounded py-3 px-7 mx-3">${summary.pending} pending</h5>;
+        } else {
+            pendingLabel = null;
+        }
+
         // If user is logged in, go to dashboard
         return (
             <div>
@@ -208,7 +214,7 @@ class Dashboard extends React.Component {
                     <div className="bg-gray-50 rounded-lg shadow-lg py-5 px-5 border mt-10">
                         <h5 className="text-base text-gray-800 font-semibold text-center pb-4">You have ${summary.total} bills to pay.</h5>
                         <div className="flex flex-row">
-                            <h5 className="bg-green-200 rounded py-3 px-7 mx-3">${summary.pending} pending</h5>
+                            {pendingLabel}
                             <h5 className="bg-yellow-200 rounded py-3 px-7 mx-3">${summary.due} due</h5>
                             <h5 className="bg-red-200 rounded py-3 px-7 mx-3">${summary.overdue} overdue</h5>
                         </div>

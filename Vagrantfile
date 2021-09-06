@@ -27,13 +27,13 @@ Vagrant.configure("2") do |config|
         npm install
         npm run build
         npm install -g forever
-        forever start -o /vagrant/out.log -e /vagrant/error.log -l /vagrant/forever.log /vagrant/main.js
+        forever start -o /vagrant/out.log -e /vagrant/error.log /vagrant/main.js
       SHELL
       webserver.vm.provision "restart", type: "shell", privileged: false, run: "never", inline: <<-SHELL
         cd /vagrant
         source ~/.nvm/nvm.sh
         npm run build
-        forever restart  -o /vagrant/out.log -e /vagrant/error.log -l /vagrant/forever.log /vagrant/main.js
+        forever restart  -o /vagrant/out.log -e /vagrant/error.log /vagrant/main.js
       SHELL
     end
   
@@ -75,12 +75,12 @@ Vagrant.configure("2") do |config|
         cd /vagrant
         npm install
         npm install -g forever
-        forever start /vagrant/server.js
+        forever start -o /vagrant/out.log -e /vagrant/error.log /vagrant/server.js
       SHELL
       dbserver.vm.provision "restart", type: "shell", privileged: false, run: "never", inline: <<-SHELL
         cd /vagrant
         source ~/.nvm/nvm.sh
-        forever restart /vagrant/server.js
+        forever restart -o /vagrant/out.log -e /vagrant/error.log /vagrant/server.js
       SHELL
     end
   

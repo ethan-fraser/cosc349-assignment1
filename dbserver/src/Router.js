@@ -358,7 +358,7 @@ class Router {
                                 resolve({
                                     billID: bill.billID,
                                     name: bill.name,
-                                    due: bill.due,
+                                    due: bill.date,
                                     amount: bill.amount,
                                     members: membersInfo,
                                 })
