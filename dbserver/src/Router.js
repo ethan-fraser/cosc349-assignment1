@@ -17,6 +17,7 @@ class Router {
         this.registerUser(app, db);
         this.billInfo(app, db);
         this.createService(app, db);
+        this.updateBillStatus(app, db);
     }
 
     getFlatNameByID(db, id){
@@ -327,7 +328,7 @@ class Router {
 
     getMembersAndBillStatusesByFlatIDAndBillID(db, params) {
         return new Promise((resolve, reject) => {
-            db.query('SELECT fname, status FROM users INNER JOIN bill_status ON users.email=bill_status.userEmail WHERE flatID = ? AND billID = ?', params, (err, data) => {
+            db.query('SELECT email, fname, status FROM users INNER JOIN bill_status ON users.email=bill_status.userEmail WHERE flatID = ? AND billID = ?', params, (err, data) => {
                 if (err) {
                     reject(err)
                 }
@@ -346,26 +347,28 @@ class Router {
                 .then(members => {
                     this.getBillByBillID(db, [billID])
                         .then(bill => {
+                            let status = members.find(member => { return member.fname === userFName}).status
                             if (is_manager) {
                                 let membersInfo = []
                                 members.forEach(member => {
                                     membersInfo.push({
+                                        email: member.email,
                                         name: member.fname,
                                         amount: +((bill.amount / members.length).toFixed(2)),
                                         status: member.status
                                     })
                                 })
                                 resolve({
-                                    billID: bill.billID,
+                                    billID: billID,
                                     name: bill.name,
                                     due: bill.date,
                                     amount: bill.amount,
                                     members: membersInfo,
+                                    status: status
                                 })
                             } else {
-                                let status = members.find(member => { return member.fname === userFName}).status
                                 resolve({
-                                    billID: bill.billID,
+                                    billID: billID,
                                     name: bill.name,
                                     due: bill.date,
                                     amount: +((bill.amount / members.length).toFixed(2)),
@@ -394,7 +397,7 @@ class Router {
                             this.getBillInfo(db, bill.billID, flatID, is_manager, userFName)
                                 .then(billInfo => { 
                                     allBillsInfo.push(billInfo)
-                                    if (allBillsInfo.length == bills.length) {
+                                    if (allBillsInfo.length === bills.length) {
                                         res()
                                     }
                                 })
@@ -545,6 +548,39 @@ class Router {
                     res.json({
                         success: false,
                         msg: "Could not get flatID"
+                    })
+                })
+        })
+    }
+
+    updateBillStatusByBillIDAndUserEmail(db, params) {
+        return new Promise((resolve, reject) => {
+            db.query('UPDATE bill_status SET status = ? WHERE billID = ? AND userEmail = ?', params, (err) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve()
+            })
+        })
+    }
+
+    updateBillStatus(app, db) {
+        app.post('/updateBillStatus', (req, res) => {
+            let billID = req.body.billID
+            let userEmail = req.body.userEmail
+            let newStatus = req.body.newStatus
+
+            this.updateBillStatusByBillIDAndUserEmail(db, [newStatus, billID, userEmail])
+                .then(() => {
+                    res.json({
+                        success: true,
+                        newStatus: newStatus
+                    })
+                })
+                .catch(err => {
+                    res.json({
+                        success: false,
+                        msg: "Could not update bill: " + err
                     })
                 })
         })

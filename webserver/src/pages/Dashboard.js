@@ -134,21 +134,22 @@ class Dashboard extends React.Component {
             overdue: 0
         }
         this.state.bills.forEach(bill => {
+            let billInfo = bill
             if (UserStore.isManager){
-                bill = {
-                    status: bill.members.find(findMember).status,
-                    amount: bill.members.find(findMember).amount
+                billInfo = {
+                    status: billInfo.members.find(findMember).status,
+                    amount: billInfo.members.find(findMember).amount
                 }
             }
-            if (bill.status === "pending") {
-                result.pending += bill.amount
-            } else if (bill.status === "due") {
-                result.due += bill.amount
-            } else if (bill.status === "overdue") {
-                result.overdue += bill.amount
+            if (billInfo.status === "pending") {
+                result.pending += billInfo.amount
+            } else if (billInfo.status === "due") {
+                result.due += billInfo.amount
+            } else if (billInfo.status === "overdue") {
+                result.overdue += billInfo.amount
             }
         })
-        result.total = (result.pending + result.due + result.overdue).toFixed(2)
+        result.total = (result.due + result.overdue).toFixed(2)
         result.pending = result.pending.toFixed(2)
         result.due = result.due.toFixed(2)
         result.overdue = result.overdue.toFixed(2)
