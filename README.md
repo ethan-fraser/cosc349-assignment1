@@ -12,19 +12,23 @@ Flatbills is a platform for flats to manage their bill payments. There are two t
 2. Flat members - Regular users who just pay their bill portions.
 
 This project runs on 3 virtual machines:
-1. 192.168.2.11 - This hosts webserver which is a web interface for users.
+1. 192.168.2.11 - This hosts webserver which is a web interface for users to interact with the platform.
 2. 192.168.2.12 - This hosts dbserver which is a database that stores all the records of the users.
 3. xxx - This hosts the email server which sends email notifications to users on the due date of the bill payments.
 
 The tech stack varies for both webserver and dbserver:
 1. webserver - React.js, Tailwind CSS
 2. dbserver - Express.js, SQL
+They both use Node.js
 
 - [ ] Design of application\
 - [ ] How they interact
 
 ## Project Demo 💡
 
+### Screenshots
+
+### Screen recording
 
 ## Running the project 🏃
 
