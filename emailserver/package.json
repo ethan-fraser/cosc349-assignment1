@@ -1,0 +1,23 @@
+{
+  "name": "emailserver",
+  "version": "1.0.0",
+  "description": "Email server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ethan-fraser/cosc349-assignment1.git"
+  },
+  "author": "Ethan Fraser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ethan-fraser/cosc349-assignment1/issues"
+  },
+  "homepage": "https://github.com/ethan-fraser/cosc349-assignment1#readme",
+  "dependencies": {
+    "nodemailer": "^6.6.3"
+  }
+}
