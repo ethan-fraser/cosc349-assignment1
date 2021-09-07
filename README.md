@@ -58,5 +58,5 @@ https://www.virtualbox.org/wiki/Downloads
 - Navigate to http://192.168.2.11:3000/ (192.168.2.11 is the IP address of the webserver and 3000 is React's default port number)
 
 ### Restarting the servers
-Once you have made changes to the source and you want to update the servers, run the following command:
+Once you have made changes to the source and you want to update the servers, run the following command:\
 `vagrant provision <server_name> --provision-with restart`
