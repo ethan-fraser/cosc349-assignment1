@@ -25,10 +25,7 @@ This project runs on 3 virtual machines:
 
 While they both use Node.js, the tech stack varies for both webserver and dbserver:
 1. webserver - It is a React.js project being served using Express.js. It uses Tailwind CSS for styling. For more information, see [here](./webserver/index.md).
-2. dbserver - It runs the MySQL database and the Express.js API that the webserver uses to interface with it. For more information, see [here](./dbserver/index.md).\
-
-- [ ] Design of application
-- [ ] How they interact
+2. dbserver - It runs the MySQL database and the Express.js API that the webserver uses to interface with it. For more information, see [here](./dbserver/index.md).
 
 ## Installation and Usage 🏃
 
