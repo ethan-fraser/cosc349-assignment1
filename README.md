@@ -23,10 +23,9 @@ This project runs on 3 virtual machines:
 2. 192.168.2.12 - This hosts dbserver which is a database that stores all the records of the users.
 3. xxx - This hosts the email server which sends email notifications to users on the due date of the bill payments.
 
-The tech stack varies for both webserver and dbserver:
+While they both use Node.js, the tech stack varies for both webserver and dbserver:
 1. webserver - It is a React.js project being served using Express.js. It uses Tailwind CSS for styling. For more information, see [here](./webserver/index.md).
 2. dbserver - It runs the MySQL database and the Express.js API that the webserver uses to interface with it. For more information, see [here](./dbserver/index.md).\
-They both use Node.js
 
 - [ ] Design of application
 - [ ] How they interact
