@@ -1,8 +1,6 @@
 import React from 'react';
 import UserStore from '../stores/UserStore';
 
-const API_URL = "http://192.168.2.12:3000";
-
 class BillCard extends React.Component {
 
     constructor(props) {
@@ -15,71 +13,20 @@ class BillCard extends React.Component {
             billStatus: props.bill.status,
             flatMembers: props.bill.members,
 		}
-        this.doUpdateStatus = this.doUpdateStatus.bind(this);
+        this.doUpdateStatus = props.doUpdateStatus
+        this.PayButton = this.PayButton.bind(this)
+        this.ManagerList = this.ManagerList.bind(this)
 	}
 
-    async doUpdateStatus(e) {
-        let status
-        let name
-        let userEmail
-        if (UserStore.isManager) {
-            name = e.target.getAttribute('name')
-            var member = this.state.flatMembers.find(member => {
-                return member.name === name
-            })
-            status = member.status
-            userEmail = member.email
-        } else {
-            status = this.state.billStatus
-            userEmail = UserStore.email
-        }
-        let newStatus
-        if (status === "due" || status === "overdue"){
-            if (UserStore.isManager){
-                newStatus = "paid"
-            } else {
-                newStatus = "pending"
-            }
-        } else if (status === "pending") {
-            newStatus = "paid"
-        } else {
-            return
-        }
-        try {
-			let res = await fetch(API_URL + '/updateBillStatus', {
-				method: 'post',
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				},
-                credentials: 'include',
-				body: JSON.stringify({
-					billID: this.state.billID,
-                    userEmail: userEmail,
-                    newStatus: newStatus
-				})
-			});
-
-			let result = await res.json();
-
-			if (result && result.success) {
-                if (UserStore.isManager) {
-                    var newFlatMembers = this.state.flatMembers.slice()
-                    newFlatMembers.find(member => { return member.name === name }).status = result.newStatus
-                    this.setState({
-                        flatMembers: newFlatMembers
-                    })
-                } else {
-                    this.setState({billStatus: result.newStatus});
-                }
-			} else {
-				console.log(result)
-			}
-
-		} catch(e) {
-			console.log(e);
-			this.resetForm();
-		}
+    componentWillReceiveProps(props) {
+        this.setState({
+            billID: props.bill.billID,
+            billName: props.bill.name,
+            billAmount: props.bill.amount,
+            billDate: props.bill.due,
+            billStatus: props.bill.status,
+            flatMembers: props.bill.members,
+		});
     }
 
     PayButton(props) {
@@ -109,7 +56,8 @@ class BillCard extends React.Component {
             return <button
                 className="text-sm font-semibold text-gray-800 shadow-xl bg-white hover:bg-yellow-50 rounded w-16 h-5 ml-4 mt-3"
                 onClick={props.onClick}
-                name={props.name}>{label}</button>
+                name={props.name}
+                billID={this.state.billID}>{label}</button>
         } else {
             return <div className="text-sm font-semibold text-yellow-300 text-right ml-4 mt-3">{label}</div>
         }
@@ -118,17 +66,17 @@ class BillCard extends React.Component {
     ManagerList(props) {
         return (
             <div className="border-t border-gray-800 pt-3">
-                {props.bill.state.flatMembers.map((member) => {
+                {this.state.flatMembers.map((member) => {
                     return (
                         <div className="flex flex-row justify-between mb-3">
                             <div>
                                 <h5 className="text-sm text-gray-800 text-left font-semibold">{member.name}</h5>
                                 <h5 className="text-sm text-gray-800 text-left">Pay ${member.amount.toFixed(2)}</h5>
                             </div>
-                            <props.bill.PayButton
+                            <this.PayButton
                                 status={member.status}
                                 name={member.name}
-                                onClick={props.bill.doUpdateStatus}
+                                onClick={this.doUpdateStatus}
                                 />
                         </div>
                     )
@@ -153,7 +101,7 @@ class BillCard extends React.Component {
         // Show ManagerList only for manager
         let ManagerDisplay;
         if (UserStore.isManager) {
-            ManagerDisplay = <this.ManagerList bill={this} />;
+            ManagerDisplay = <this.ManagerList />;
         } else {
             ManagerDisplay = null;
         }

@@ -19,7 +19,7 @@ function Bills(props) {
         <div className="flex justify-start px-44 flex-wrap">
             { props.bills.map( bill => (
                 <div>
-                    <BillCard bill={bill}/>
+                    <BillCard bill={bill} doUpdateStatus={props.doUpdateStatus}/>
                 </div>
             ))}
         </div>
@@ -34,6 +34,7 @@ class Dashboard extends React.Component {
             isLoggedIn: true,
             bills: []
         }
+        this.doUpdateStatus = this.doUpdateStatus.bind(this);
     }
 
     // API calls to check if the user is logged in
@@ -53,7 +54,6 @@ class Dashboard extends React.Component {
 			// If user is successfully logged in
 			if (result && result.success) {
 				//UserStore.loading = false;
-                this.setState({isLoggedIn: true})
 				UserStore.isLoggedIn = true;
 				UserStore.email = result.email;
                 UserStore.firstName = result.fname;
@@ -61,6 +61,7 @@ class Dashboard extends React.Component {
                 UserStore.flatName = result.flatName;
                 UserStore.flatCode = result.flatID;
                 UserStore.isManager = result.is_manager;
+                this.setState({isLoggedIn: true})
 			} else {
 				//UserStore.loading = false;
                 this.setState({isLoggedIn: false})
@@ -96,6 +97,76 @@ class Dashboard extends React.Component {
             console.error(e)
         }
 	}
+
+    async doUpdateStatus(e) {
+        let billID = parseInt(e.target.getAttribute('billID'))
+        const findBill = (bill) => {
+            return bill.billID === billID
+        }
+        let bill = this.state.bills.find(findBill)
+        console.log(billID, bill)
+        let status
+        let name
+        let userEmail
+        if (UserStore.isManager) {
+            name = e.target.getAttribute('name')
+            var member = bill.members.find(member => {
+                return member.name === name
+            })
+            status = member.status
+            userEmail = member.email
+        } else {
+            status = bill.status
+            userEmail = UserStore.email
+        }
+        let newStatus
+        if (status === "due" || status === "overdue"){
+            if (UserStore.isManager){
+                newStatus = "paid"
+            } else {
+                newStatus = "pending"
+            }
+        } else if (status === "pending") {
+            newStatus = "paid"
+        } else {
+            return
+        }
+        try {
+			let res = await fetch(API_URL + '/updateBillStatus', {
+				method: 'post',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+                credentials: 'include',
+				body: JSON.stringify({
+					billID: billID,
+                    userEmail: userEmail,
+                    newStatus: newStatus
+				})
+			});
+
+			let result = await res.json();
+
+			if (result && result.success) {
+                let newBills = this.state.bills.slice()
+                let newBill = newBills.find(findBill)
+                if (UserStore.isManager) {
+                    newBill.members.find(member => { return member.name === name }).status = result.newStatus
+                    this.setState({bills: newBills})
+                } else {
+                    newBill.status = result.newStatus
+                    this.setState({ bills: newBills });
+                }
+			} else {
+				console.log(result)
+			}
+
+		} catch(e) {
+			console.log(e);
+			this.resetForm();
+		}
+    }
 
     // Instructions for when logout button is pressed
 	async doLogout() {
@@ -169,7 +240,7 @@ class Dashboard extends React.Component {
         if (this.state.bills.length === 0) {
             display = <Empty />;
         } else {
-            display = <Bills bills={this.state.bills} />;
+            display = <Bills bills={this.state.bills} doUpdateStatus={this.doUpdateStatus}/>;
         }
 
         // Show bill button if flat manager; Hide bill button if flat member
