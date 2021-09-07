@@ -8,10 +8,10 @@ For full documentation, see the [docs](./docs/index.md) directory.
 
 ## Contents
 - [Description](#description)
+- [Installation and Usage](#installation-and-usage)
 - [Demo](#demo)
-- [Installation and Usage](#installationandusage)
 
---
+---
 
 ## Description 📃
 Flatbills is a platform for flats to manage their bill payments. There are two types of users - flat managers and flat members.
@@ -28,14 +28,8 @@ The tech stack varies for both webserver and dbserver:
 2. dbserver - It runs the MySQL database and the Express.js API that the webserver uses to interface with it. For more information, see [here](./dbserver/index.md).\
 They both use Node.js
 
-- [ ] Design of application\
+- [ ] Design of application
 - [ ] How they interact
-
-## Demo 💡
-
-### Screenshots
-
-### Screen recording
 
 ## Installation and Usage 🏃
 
@@ -67,3 +61,9 @@ https://www.virtualbox.org/wiki/Downloads
 ### Restarting the servers
 Once you have made changes to the source and you want to update the servers, run the following command:\
 `vagrant provision <server_name> --provision-with restart`
+
+## Demo 💡
+
+### Screenshots
+
+### Screen recording
