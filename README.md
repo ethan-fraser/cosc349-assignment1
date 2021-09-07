@@ -7,9 +7,9 @@ Group members: Ethan Fraser and Magdeline Huang
 For full documentation, see the [docs](./docs/index.md) directory.
 
 ## Contents
-- [Description](#description)
-- [Installation and Usage](#installation-and-usage)
-- [Demo](#demo)
+- [Description](#description-)
+- [Installation and Usage](#installation-and-usage-)
+- [Demo](#demo-)
 
 ---
 
