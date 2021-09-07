@@ -116,7 +116,7 @@ class Login extends React.Component {
         }
 
         return (
-            <div className="grid place-items-center body-bg min-h-screen">
+            <div className="body-bg min-h-screen">
                 <h1 className="text-5xl text-gray-50 font-black text-center py-9">flatbills</h1>
                 <div className="w-96 h-96 mx-auto bg-gray-50 rounded-lg shadow-2xl">
                     <div>
@@ -145,7 +145,7 @@ class Login extends React.Component {
                         />
                     </div>
                 </div>
-                <h5 className="text-base text-gray-50 font-regular text-center my-3">Don't have an account? Register <Link to="/register" className="underline">here</Link>.</h5>
+                <h5 className="text-base text-gray-50 font-regular text-center py-3">Don't have an account? Register <Link to="/register" className="underline">here</Link>.</h5>
             </div>
         );
     }
