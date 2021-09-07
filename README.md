@@ -6,7 +6,14 @@ Group members: Ethan Fraser and Magdeline Huang
 
 For full documentation, see the [docs](./docs/index.md) directory.
 
-## Project Description 📃
+## Contents
+- [Description](#description)
+- [Demo](#demo)
+- [Installation and Usage](#installationandusage)
+
+--
+
+## Description 📃
 Flatbills is a platform for flats to manage their bill payments. There are two types of users - flat managers and flat members.
 1. Flat managers - Users who are responsible for managing the flat members' payments of their bill portions.
 2. Flat members - Regular users who just pay their bill portions.
@@ -24,13 +31,13 @@ They both use Node.js
 - [ ] Design of application\
 - [ ] How they interact
 
-## Project Demo 💡
+## Demo 💡
 
 ### Screenshots
 
 ### Screen recording
 
-## Running the Project 🏃
+## Installation and Usage 🏃
 
 ### Requirements
 - *VirtualBox (v6.1.x)*\
