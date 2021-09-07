@@ -30,7 +30,7 @@ They both use Node.js
 
 ### Screen recording
 
-## Running the project 🏃
+## Running the Project 🏃
 
 ### Requirements
 - *VirtualBox (v6.1.x)*\
@@ -60,6 +60,3 @@ https://www.virtualbox.org/wiki/Downloads
 ### Restarting the servers
 Once you have made changes to the source and you want to update the servers, run the following command:
 `vagrant provision <server_name> --provision-with restart`
-
-## Webserver Prototype 🎨
-Click on this [link](https://www.figma.com/proto/dCuyr7IzSFl7IAJ5QDOpDg/349-Assignment-1?node-id=29%3A1382&scaling=scale-down&page-id=0%3A1&starting-point-node-id=29%3A923&show-proto-sidebar=1) to view the UI for the webserver.
