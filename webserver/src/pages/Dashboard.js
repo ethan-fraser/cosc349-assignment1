@@ -199,10 +199,7 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <nav className="bg-blue-400 flex flex-row">
-                    <div className="flex flex-row">
-                        <h1 className="text-3xl text-gray-50 font-black text-left py-3 pl-5"><Link to="/dashboard">flatbills</Link></h1>
-                        <h2 className="text-3xl text-gray-200 font-black text-left py-3 ml-3">{UserStore.flatcode}</h2>
-                    </div>
+                    <h1 className="text-3xl text-gray-50 font-black text-left py-3 pl-5"><Link to="/dashboard">flatbills</Link></h1>
                     <button
                         className="font-semibold text-blue-400 bg-white hover:bg-gray-50 rounded w-36 py-2 px-2 my-3 mr-5 absolute right-0"
                         onClick={ () => this.doLogout() }
@@ -210,6 +207,7 @@ class Dashboard extends React.Component {
                         Logout
                     </button>                
                 </nav>
+                <h2 className="text-sm text-gray-200 text-left px-48 py-3">{UserStore.flatCode}</h2>
                 <div className="flex flex-row justify-between px-48">
                     <div>
                         <h3 className="text-2xl text-gray-800 font-semibold text-left py-7">Welcome to {UserStore.flatName},<br/>{UserStore.firstName}!</h3>
