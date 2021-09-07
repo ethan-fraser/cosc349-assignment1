@@ -278,10 +278,10 @@ class Dashboard extends React.Component {
                         Logout
                     </button>                
                 </nav>
-                <h2 className="text-sm text-gray-200 text-left px-48 py-3">{UserStore.flatCode}</h2>
                 <div className="flex flex-row justify-between px-48">
                     <div>
-                        <h3 className="text-2xl text-gray-800 font-semibold text-left py-7">Welcome to {UserStore.flatName},<br/>{UserStore.firstName}!</h3>
+                        <h2 className="text-sm text-gray-500 text-left pb-3 pt-10">Flat Code: {UserStore.flatCode}</h2>
+                        <h3 className="text-2xl text-gray-800 font-semibold text-left pb-7 pr-5">Welcome to {UserStore.flatName}, {UserStore.firstName}!</h3>
                         {billButton}
                     </div>
                     <div className="bg-gray-50 rounded-lg shadow-lg py-5 px-5 border mt-10">
