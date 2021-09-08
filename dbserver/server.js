@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const Router = require('./src/Router');
+require('dotenv').config()
 
 const port = 3000;
 
@@ -18,10 +19,10 @@ app.use(function(req, res, next) {
 
 //Database connection
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'webuser',
-    password: 'password',
-    database: 'dbserver'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
 
 db.connect(function(err) {
@@ -37,8 +38,8 @@ const sessionStore = new MySQLStore({
 }, db);
 
 app.use(session({
-    key: 'random1',
-    secret: 'random2',
+    key: process.env.SESSION_KEY,
+    secret: process.env.SESSION_SECRET,
     store: sessionStore,
     resave: false,
     saveUninitialized: false,
