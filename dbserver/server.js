@@ -4,7 +4,8 @@ const mysql = require('mysql');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const Router = require('./src/Router');
-require('dotenv').config()
+const path = require('path');
+require('dotenv').config({path: path.resolve(__dirname, ".env")});
 
 const port = 3000;
 
@@ -18,11 +19,17 @@ app.use(function(req, res, next) {
 })
 
 //Database connection
-const db = mysql.createConnection({
+console.log({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
+    pass: process.env.DB_PASS,
+    name: process.env.DB_NAME
+})
+const db = mysql.createConnection({
+    host:       process.env.DB_HOST,
+    user:       process.env.DB_USER,
+    password:   process.env.DB_PASS,
+    database:   process.env.DB_NAME
 });
 
 db.connect(function(err) {
