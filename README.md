@@ -59,8 +59,6 @@ Once you have made changes to the source and you want to update the servers, run
 `vagrant provision <server_name> --provision-with restart`
 
 ## Demo 💡
+Covers how to bring up VMs, use flatbills interface, and make changes to source files
 
-### Screenshots
-
-### How to bring up VMs, use flatbills interface, and make changes to source files
 [Video](https://user-images.githubusercontent.com/54191678/132607415-d2cb6c6b-8b23-4e74-97ef-74e12891afe0.mp4)
