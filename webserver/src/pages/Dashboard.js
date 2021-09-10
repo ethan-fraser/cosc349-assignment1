@@ -246,7 +246,7 @@ class Dashboard extends React.Component {
         // Show bill button if flat manager; Hide bill button if flat member
         let billButton;
         if (UserStore.isManager) {
-            billButton = <Link to="/serviceform">
+            billButton = <Link to="/billform">
                             <button className="font-semibold text-white bg-blue-400 hover:bg-blue-300 rounded py-5 px-10 inline-flex items-center">
                                 <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/></svg>
                                 Add a New Bill
@@ -298,7 +298,7 @@ class Dashboard extends React.Component {
                 </div>
                 <div className="my-10">
                     {display}
-                    {/* <h5 className="text-center mb-3">You have not set up any services.</h5>
+                    {/* <h5 className="text-center mb-3">You have not set up any bills.</h5>
                     <img src='/undraw_not_found_60pq.svg' alt="No input" width="300" height="218.1" className="mx-auto"></img> */}
                 </div>
             </div>

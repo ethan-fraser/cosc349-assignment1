@@ -16,7 +16,7 @@ class Router {
         this.isLoggedIn(app, db);
         this.registerUser(app, db);
         this.billInfo(app, db);
-        this.createService(app, db);
+        this.createBill(app, db);
         this.updateBillStatus(app, db);
     }
 
@@ -507,8 +507,8 @@ class Router {
         })
     }
 
-    createService(app, db) {
-        app.post('/createService', (req, res) => {
+    createBill(app, db) {
+        app.post('/createBill', (req, res) => {
             let params = [
                 req.body.billName,
                 req.body.billDate,

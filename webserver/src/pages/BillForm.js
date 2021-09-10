@@ -5,7 +5,7 @@ import SubmitButton from '../components/SubmitButton';
 
 const API_URL = "http://192.168.2.12:3000";
 
-class ServiceForm extends React.Component {
+class BillForm extends React.Component {
 
     constructor(props) {
 		super(props);
@@ -14,7 +14,7 @@ class ServiceForm extends React.Component {
 			billDate: '',
             billAmount: 0,
 			buttonDisabled: false,
-            filledService: false // Whether or not the service form has been filled
+            filledBill: false // Whether or not the bill form has been filled
 		}
 	}
 
@@ -31,7 +31,7 @@ class ServiceForm extends React.Component {
 			billDate: '',
             billAmount: 0,
 			buttonDisabled: false,
-            filledService: false
+            filledBill: false
 		})
 	}
 
@@ -54,7 +54,7 @@ class ServiceForm extends React.Component {
 
         // API calls to dbserver
 		try {
-			let res = await fetch(API_URL + '/createService', {
+			let res = await fetch(API_URL + '/createBill', {
 				method: 'post',
 				headers: {
 					'Accept': 'application/json',
@@ -69,7 +69,7 @@ class ServiceForm extends React.Component {
 			});
 			let result = await res.json();
 			if (result && result.success) {
-                this.setState({ filledService: true})
+                this.setState({ filledBill: true})
 			} else if (result && result.success === false) {
 				this.resetForm();
 				alert(result.msg);
@@ -81,8 +81,8 @@ class ServiceForm extends React.Component {
 	}
 
     render() {
-        // If service form is filled, go back to dashboard
-        if (this.state.filledService) {
+        // If bill form is filled, go back to dashboard
+        if (this.state.filledBill) {
             return (
                 <Redirect to="/dashboard" />
             )
@@ -142,4 +142,4 @@ class ServiceForm extends React.Component {
     }
 }
 
-export default ServiceForm;
+export default BillForm;

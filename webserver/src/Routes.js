@@ -7,7 +7,7 @@ import Register from './pages/Register';
 // import RegisterManager from './pages/RegisterManager';
 // import RegisterMember from './pages/RegisterMember';
 import Dashboard from './pages/Dashboard';
-import ServiceForm from './pages/ServiceForm';
+import BillForm from './pages/BillForm';
 import { observer } from 'mobx-react';
 // import UserStore 	from './stores/UserStore';
 
@@ -77,17 +77,8 @@ class Routes extends React.Component {
                 <Route path="/register">
                     <Register />
                 </Route>
-                {/* <Route path="/registerselect">
-                    <RegisterSelect />
-                </Route>
-                <Route path="/registermanager">
-                    <RegisterManager />
-                </Route>
-                <Route path="/registermember">
-                    <RegisterMember />
-                </Route> */}
-                <Route path="/serviceform">
-                    <ServiceForm />
+                <Route path="/billform">
+                    <BillForm />
                 </Route>
                 <Route path="/dashboard">
                     <Dashboard />
@@ -98,33 +89,3 @@ class Routes extends React.Component {
 }
 
 export default observer(Routes);
-
-// function Routes() {
-//     return (
-//         <Switch>
-//             <Route exact path="/">
-//                 <Login />
-//             </Route>
-//             <Route path="/login">
-//                 <Login />
-//             </Route>
-//             <Route path="/registerselect">
-//                 <RegisterSelect />
-//             </Route>
-//             <Route path="/registermanager">
-//                 <RegisterManager />
-//             </Route>
-//             <Route path="/registermember">
-//                 <RegisterMember />
-//             </Route>
-//             <Route path="/dashboard">
-//                 <Dashboard />
-//             </Route>
-//             <Route path="/serviceform">
-//                 <ServiceForm />
-//             </Route>
-//         </Switch>
-//     );
-// }
-
-// export default Routes;
