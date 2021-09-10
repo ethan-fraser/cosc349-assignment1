@@ -8,7 +8,7 @@ const API_URL = "http://192.168.2.12:3000";
 function Empty(props) {
     return (
         <div className="mx-auto">
-            <h5 className="text-center mb-3">You have not set up any services.</h5>
+            <h5 className="text-center mb-3">You have not added any bill cards.</h5>
             <img src='/undraw_not_found_60pq.svg' alt="No input" width="300" height="218.1" className="mx-auto"></img>
         </div>
     );
