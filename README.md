@@ -44,6 +44,8 @@ https://www.virtualbox.org/wiki/Downloads
     Should have virtualisation enabled by default
     - **Windows**\
     Does not have virtualisation enabled by default. To enable, see [here](https://www.youtube.com/watch?v=MOuTxfzCvMY)
+- *Firefox*\
+    flatbills is only compatible with the Firefox browser. Download [here](https://www.mozilla.org/en-GB/firefox/browsers/) for all operating systems.
 
 ### Running the servers
 - *Clone the repository*\
