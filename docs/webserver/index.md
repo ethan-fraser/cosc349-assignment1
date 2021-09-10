@@ -45,7 +45,7 @@ This page is the highlight of the flatbills application. The top left of the das
 
 When no bill cards have been added yet, the bottom half of the dashboard will say "You have not added any bill cards." and will display an image. Otherwise, it will display the bill cards. The number of bill cards per row depends on the width of the screen. When the maximum width of the screen has been reached, the new bill cards will be added to the bottom row.
 
-##### Service Form
+##### Bill Form
 This page is a form for adding new bills. From the dashboard, clicking on the "Add a new bill" button will direct the user to this page. As mentioned in the Dashboard section, only the flat manager has this authority. The form asks for the bill name, bill amount, and due date. When the Done button is clicked, `doDone()` will be called which will send all the user input to the database and populate it with the new bill record. Clicking on the Cancel button directs the user back to the dashboard.
 
 ### Utility Components
