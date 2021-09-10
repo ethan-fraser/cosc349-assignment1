@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import InputField 	from '../components/InputField';
 import SubmitButton from '../components/SubmitButton';
+import Navbar from '../components/Navbar';
+import UserStore 	from '../stores/UserStore';
 
 const API_URL = "http://192.168.2.12:3000";
 
@@ -19,7 +21,6 @@ class BillForm extends React.Component {
 	}
 
     setInputValue(property, val) {
-		//val = val.trim();
 		this.setState({
 			[property]: val
 		})
@@ -80,6 +81,33 @@ class BillForm extends React.Component {
 		}
 	}
 
+    // Instructions for when logout button is pressed
+	async doLogout() {
+        // API calls to the dbserver
+		try {
+			let res = await fetch(API_URL + '/logout', {
+				method: 'post',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+                credentials: 'include'
+			});
+			let result = await res.json();
+			if (result && result.success) {
+                this.setState({isLoggedIn: false});
+				UserStore.isLoggedIn = false;
+				UserStore.email = '';
+                UserStore.firstName = '';
+                UserStore.lastName = '';
+                UserStore.flatName = '';
+                UserStore.flatCode = '';
+			}
+		} catch(e) {
+			console.log(e)
+		}
+	}
+
     render() {
         // If bill form is filled, go back to dashboard
         if (this.state.filledBill) {
@@ -90,13 +118,7 @@ class BillForm extends React.Component {
 
         return (
             <div>
-                <nav className="bg-blue-400 flex flex-row">
-                    <h1 className="text-3xl text-gray-50 font-black text-left py-3 px-3 inline-flex">
-                        <img src='/flatbills_logo.png' alt="flatbills logo" width="35" height="35" className="mr-2"></img>
-                        <Link to="/dashboard">flatbills</Link>
-                    </h1>
-                    <button className="font-semibold text-blue-400 bg-white hover:bg-gray-50 rounded w-36 py-2 px-2 my-3 mr-5 absolute right-0"><Link to="/login">Logout</Link></button>                
-                </nav>
+                <Navbar onClick={ () => this.doLogout() } />
                 <div className="flex flex-row pt-10 items-center">
                     <div className="mx-auto mr-1">
                         <h3 className="text-2xl text-gray-800 font-semibold text-left py-3 px-3">Add a New Bill</h3>

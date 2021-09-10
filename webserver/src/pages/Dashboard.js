@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import UserStore 	from '../stores/UserStore';
 import BillCard     from '../components/BillCard';
+import Navbar from '../components/Navbar';
 
 const API_URL = "http://192.168.2.12:3000";
 
@@ -53,7 +54,6 @@ class Dashboard extends React.Component {
 
 			// If user is successfully logged in
 			if (result && result.success) {
-				//UserStore.loading = false;
 				UserStore.isLoggedIn = true;
 				UserStore.email = result.email;
                 UserStore.firstName = result.fname;
@@ -63,12 +63,10 @@ class Dashboard extends React.Component {
                 UserStore.isManager = result.is_manager;
                 this.setState({isLoggedIn: true})
 			} else {
-				//UserStore.loading = false;
                 this.setState({isLoggedIn: false})
 				UserStore.isLoggedIn = false;
 			}
 		} catch(e) {
-			//UserStore.loading = false;
             this.setState({isLoggedIn: false});
 			UserStore.isLoggedIn = false;
 		}
@@ -269,18 +267,7 @@ class Dashboard extends React.Component {
         // If user is logged in, go to dashboard
         return (
             <div>
-                <nav className="bg-blue-400 flex flex-row">
-                    <h1 className="text-3xl text-gray-50 font-black text-left py-3 px-3 inline-flex">
-                        <img src='/flatbills_logo.png' alt="flatbills logo" width="35" height="35" className="mr-2"></img>
-                        <Link to="/dashboard">flatbills</Link>
-                    </h1>
-                    <button
-                        className="font-semibold text-blue-400 bg-white hover:bg-gray-50 rounded w-36 py-2 px-2 my-3 mr-5 absolute right-0"
-                        onClick={ () => this.doLogout() }
-                    >
-                        Logout
-                    </button>                
-                </nav>
+                <Navbar onClick={ () => this.doLogout() } />
                 <div className="flex flex-row justify-between px-48">
                     <div>
                         <h2 className="text-sm text-gray-500 text-left pb-3 pt-10">Flat Code: {UserStore.flatCode}</h2>
@@ -298,8 +285,6 @@ class Dashboard extends React.Component {
                 </div>
                 <div className="my-10">
                     {display}
-                    {/* <h5 className="text-center mb-3">You have not set up any bills.</h5>
-                    <img src='/undraw_not_found_60pq.svg' alt="No input" width="300" height="218.1" className="mx-auto"></img> */}
                 </div>
             </div>
         );
