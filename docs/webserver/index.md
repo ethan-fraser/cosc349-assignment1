@@ -52,10 +52,10 @@ This page is a form for adding new bills. From the dashboard, clicking on the "A
 _These are found in webserver/src/components._
 
 ##### Input Field
-This is used in all the forms ie login page, register page, and service form. When clicked, it will call `setInputValue()` which will replace the placeholder text with the user input.
+This is used in all the forms ie login page, register page, and bill form. When clicked, it will call `setInputValue()` which will replace the placeholder text with the user input.
 
 ##### Submit Button
-This is used in all the forms ie login page, register page, and service form. When clicked, it will call its corresponding function which will make some API calls. For example, for the Login button on the Login page, `doLogin()` will be called which will check the submitted email and password against the dbserver records to see if they exist. If they do, then the database will set the user to be logged in.
+This is used in all the forms ie login page, register page, and bill form. When clicked, it will call its corresponding function which will make some API calls. For example, for the Login button on the Login page, `doLogin()` will be called which will check the submitted email and password against the dbserver records to see if they exist. If they do, then the database will set the user to be logged in.
 
 ##### Bill Card
 This is the main component used on the dashboard. It displays the name of the bill, the amount, the due date, the name of the person who needs to pay it, and the payment action/ status (payment actions are `pay` and `verify` which are buttons; payment statusses are `paid`, `pending`, `due`, and `overdue` which are regular text).
