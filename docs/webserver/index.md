@@ -35,18 +35,18 @@ This file stores properties relevant to the user ie whether or not they are logg
 _These are found in webserver/src/pages._
 
 ##### Login
-This is the default page that http://192.168.2.11:3000/ directs to. It uses the Input Field and Submit Button utility components. As will be explained in the section for the Submit Button utility component, clicking on the Login button will make an API call to the database to check the user input against the database records. If there is a match, the user will be logged in.
+This is the default page that http://192.168.2.11:3000/ directs to. It allows a user to login to Flatbills. It uses the Input Field and Submit Button utility components. As will be explained in the section for the Submit Button utility component, clicking on the Login button will make an API call to the database to check the user input against the database records. If there is a match, the user will be logged in.
 
 ##### Register
-This page uses the Input Field and Submit Button utilty components. By default, the flat code input field will be displayed to add the user to an existing flat, however if it is a flat manager registering, clicking the checkbox will display the flat name input field. When the Next button is clicked, `doNext()` will be called which will send all the user input to the database and populate it with the new record.
+This page registers new uers to Flatbills. It uses the Input Field and Submit Button utility components. By default, the flat code input field will be displayed to add the user to an existing flat, however if it is a flat manager registering, clicking the checkbox will display the flat name input field. When the Next button is clicked, `doNext()` will be called which will send all the user input to the database and populate it with the new record.
 
 ##### Dashboard
-This page is the highlight of the flatbills application. The top left of the dashboard displays a welcome message and the flat code while the top right of the dashboard displays a bill summary tab. The flat manager's dashboard also has an "Add a new bill" button as only the manager has this authority. The flat member's summary tab also has a pending status as its payments need to be verified by the flat manager before being marked as paid.
+This page is the highlight of Flatbills. It uses the Navigation Bar and Bill Card utility components. The top left of the dashboard displays a welcome message and the flat code while the top right of the dashboard displays a bill summary tab. The flat manager's dashboard also has an "Add a new bill" button as only the manager has this authority. The flat member's summary tab also has a pending status as its payments need to be verified by the flat manager before being marked as paid.
 
 When no bill cards have been added yet, the bottom half of the dashboard will say "You have not added any bill cards." and will display an image. Otherwise, it will display the bill cards. The number of bill cards per row depends on the width of the screen. When the maximum width of the screen has been reached, the new bill cards will be added to the bottom row.
 
 ##### Bill Form
-This page is a form for adding new bills. From the dashboard, clicking on the "Add a new bill" button will direct the user to this page. As mentioned in the Dashboard section, only the flat manager has this authority. The form asks for the bill name, bill amount, and due date. When the Done button is clicked, `doDone()` will be called which will send all the user input to the database and populate it with the new bill record. Clicking on the Cancel button directs the user back to the dashboard.
+This page is a form for adding new bills. It uses the Input Field and Submit Button utility components. From the dashboard, clicking on the "Add a new bill" button will direct the user to this page. As mentioned in the Dashboard section, only the flat manager has this authority. The form asks for the bill name, bill amount, and due date. When the Done button is clicked, `doDone()` will be called which will send all the user input to the database and populate it with the new bill record. Clicking on the Cancel button directs the user back to the dashboard.
 
 ### Utility Components
 _These are found in webserver/src/components._
@@ -56,6 +56,9 @@ This is used in all the forms ie login page, register page, and bill form. When 
 
 ##### Submit Button
 This is used in all the forms ie login page, register page, and bill form. When clicked, it will call its corresponding function which will make some API calls. For example, for the Login button on the Login page, `doLogin()` will be called which will check the submitted email and password against the dbserver records to see if they exist. If they do, then the database will set the user to be logged in.
+
+##### Navigation Bar
+This is used on the dashboard and bill form. The left side has the Flatbills logo and brand name which links to the dashboard. The right side has the Logout button which logs the user out of the account and directs them back to the Login page.
 
 ##### Bill Card
 This is the main component used on the dashboard. It displays the name of the bill, the amount, the due date, the name of the person who needs to pay it, and the payment action/ status (payment actions are `pay` and `verify` which are buttons; payment statusses are `paid`, `pending`, `due`, and `overdue` which are regular text).
