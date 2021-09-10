@@ -45,7 +45,7 @@ https://www.virtualbox.org/wiki/Downloads
     - **Windows**\
     Does not have virtualisation enabled by default. To enable, see [here](https://www.youtube.com/watch?v=MOuTxfzCvMY)
 - *Firefox*\
-    flatbills is only compatible with the Firefox browser. Download [here](https://www.mozilla.org/en-GB/firefox/browsers/) for all operating systems.
+    Flatbills is only compatible with the Firefox browser. Download [here](https://www.mozilla.org/en-GB/firefox/browsers/) for all operating systems.
 
 ### Running the servers
 - *Clone the repository*\
@@ -64,6 +64,6 @@ Once you have made changes to the source and you want to update the servers, run
 You can shut down all of the servers with the command `vagrant destroy`. If you want to shut down just one of the servers you can specify the name, e.g. `vagrant destroy webserver`. After doing this, the machine's state will be completely lost, and you will need to `vagrant up` the machine again.
 
 ## Demo 💡
-Covers how to bring up VMs, use flatbills interface, and make changes to source files
+Covers how to bring up VMs, use Flatbills interface, and make changes to source files
 
 [Video](https://user-images.githubusercontent.com/54191678/132607415-d2cb6c6b-8b23-4e74-97ef-74e12891afe0.mp4)
