@@ -45,19 +45,19 @@ This page is the highlight of the flatbills application. The top left of the das
 
 When no bill cards have been added yet, the bottom half of the dashboard will say "You have not added any bill cards." and will display an image. Otherwise, it will display the bill cards. The number of bill cards per row depends on the width of the screen. When the maximum width of the screen has been reached, the new bill cards will be added to the bottom row.
 
-##### Service Form
+##### Bill Form
 This page is a form for adding new bills. From the dashboard, clicking on the "Add a new bill" button will direct the user to this page. As mentioned in the Dashboard section, only the flat manager has this authority. The form asks for the bill name, bill amount, and due date. When the Done button is clicked, `doDone()` will be called which will send all the user input to the database and populate it with the new bill record. Clicking on the Cancel button directs the user back to the dashboard.
 
 ### Utility Components
 _These are found in webserver/src/components._
 
 ##### Input Field
-This is used in all the forms ie login page, register page, and service form. When clicked, it will call `setInputValue()` which will replace the placeholder text with the user input.
+This is used in all the forms ie login page, register page, and bill form. When clicked, it will call `setInputValue()` which will replace the placeholder text with the user input.
 
 ##### Submit Button
-This is used in all the forms ie login page, register page, and service form. When clicked, it will call its corresponding function which will make some API calls. For example, for the Login button on the Login page, `doLogin()` will be called which will check the submitted email and password against the dbserver records to see if they exist. If they do, then the database will set the user to be logged in.
+This is used in all the forms ie login page, register page, and bill form. When clicked, it will call its corresponding function which will make some API calls. For example, for the Login button on the Login page, `doLogin()` will be called which will check the submitted email and password against the dbserver records to see if they exist. If they do, then the database will set the user to be logged in.
 
 ##### Bill Card
-This is the main component used on the dashboard. It displays the name of the bill, the amount, the due date, the name of the person who needs to pay it, and the payment status ie `pay`, `paid`, `pending`, `verify`, and `due`.
-1. Flow of bill statusses for __flat manager__ - When a bill card is first added, the default status is `pay`. Once the flat manager clicks `pay`, the status turns to `paid`.
-2. Flow of bill statusses for __flat member__ - When a bill card is first added, the default status is also `pay`. Once the flat member clicks `pay`, the status turns to `pending`. On the flat manager's dashboard, the flat member's bill status will change from the default `due` to `verify`. Once the flat manager has checked his/ her bank account to make sure the flat member has indeed paid the bill, the flat manager will click `verify`, which will change the bill status on both the flat manager and flat member's dashboards to `paid`.
+This is the main component used on the dashboard. It displays the name of the bill, the amount, the due date, the name of the person who needs to pay it, and the payment action/ status (payment actions are `pay` and `verify` which are buttons; payment statusses are `paid`, `pending`, `due`, and `overdue` which are regular text).
+1. Flow of payment action/ status for __flat manager__ - When a bill card is first added, the default action is `pay`. Once the flat manager clicks `pay`, the status turns to `paid`. If a bill is overdue, the status is `overdue`.
+2. Flow of payment action/ status for __flat member__ - When a bill card is first added, the default action is also `pay`. Once the flat member clicks `pay`, the status turns to `pending`. On the flat manager's dashboard, the flat member's bill status will change from the default `due` status to the `verify` action button. Once the flat manager has checked his/ her bank account to make sure the flat member has indeed paid the bill, the flat manager will click `verify`, which will change the bill status on both the flat manager and flat member's dashboards to `paid`. If a bill is overdue, the status is `overdue`.
