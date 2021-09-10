@@ -58,6 +58,9 @@ https://www.virtualbox.org/wiki/Downloads
 Once you have made changes to the source and you want to update the servers, run the following command:\
 `vagrant provision <server_name> --provision-with restart`
 
+### Shutting down the servers
+You can shut down all of the servers with the command `vagrant destroy`. If you want to shut down just one of the servers you can specify the name, e.g. `vagrant destroy webserver`. After doing this, the machine's state will be completely lost, and you will need to `vagrant up` the machine again.
+
 ## Demo 💡
 Covers how to bring up VMs, use flatbills interface, and make changes to source files
 
