@@ -10,6 +10,7 @@ For full documentation, see the [docs](./docs/index.md) directory.
 - [Description](#description-)
 - [Installation and Usage](#installation-and-usage-)
 - [Demo](#demo-)
+- [Test Data](#test-data-)
 
 ---
 
@@ -67,3 +68,31 @@ You can shut down all of the servers with the command `vagrant destroy`. If you 
 Covers how to bring up VMs, use Flatbills interface, and make changes to source files
 
 [Video](https://user-images.githubusercontent.com/54191678/132607415-d2cb6c6b-8b23-4e74-97ef-74e12891afe0.mp4)
+
+## Test Data ✅
+The database has been prepopulated with test data to ensure minimal user interaction for testing. This means that after performing the necessary steps in [Installation and usage](#installation-and-usage-), one can simply log in to the flat manager or flat member account using the details below. Bill cards have also been added.
+
+- Flat manager:
+    - Email: manager@gmail.com
+    - Password: 12345
+    - First name: Manager
+    - Last name: Cloud
+    - Flat name: 349 Cloud St
+- Flat member:
+    - Email: member@gmail.com
+    - Password: 54321
+    - First name: Member
+    - Last name: Cloud
+    - Flat code: xxx
+- Rent bill card:
+    - Bill name: Rent
+    - Bill amount: $400
+    - Bill due date: 13 Oct 2021
+- Power bill card:
+    - Bill name: Power
+    - Bill amount: $50
+    - Bill due date: 21 Oct 2021
+- Water bill card:
+    - Bill name: Water
+    - Bill amount: $100
+    - Bill due date: 11 Dec 2021
