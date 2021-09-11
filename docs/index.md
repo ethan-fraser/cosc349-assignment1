@@ -25,6 +25,14 @@ https://www.virtualbox.org/wiki/Downloads
     Download and install from https://www.vagrantup.com/downloads, or install with your distro's package manager.
     - **Windows**\
     Download and install from https://www.vagrantup.com/downloads.
+- *Enable virtualisation on your computer*
+    - **MacOS** and **Linux**\
+    Should have virtualisation enabled by default
+    - **Windows**\
+    Does not have virtualisation enabled by default. To enable, see [here](https://www.youtube.com/watch?v=MOuTxfzCvMY)
+- *Firefox*\
+    For now, Flatbills is only compatible with the Firefox browser. Download [here](https://www.mozilla.org/en-GB/firefox/browsers/) for all operating systems.
+
 ### Running the Servers
 - *Clone the repository*\
     `git clone https://github.com/ethan-fraser/cosc349-assignment1.git`
