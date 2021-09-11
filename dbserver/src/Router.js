@@ -689,6 +689,12 @@ class Router {
         app.get('/getDueBills', (req, res) => {
             this.getAllUserEmailsAndFNames(db)
                 .then(userEmails => {
+                    if (!userEmails.length) {
+                        res.json({
+                            success: false,
+                            msg: "No due bills"
+                        })
+                    }
                     let emailsForEachPromise = new Promise((resolve, reject) =>{
                         let dueBills = []
                         userEmails.forEach(user => {
