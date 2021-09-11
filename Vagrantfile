@@ -1,10 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# A Vagrantfile to set up two VMs, a webserver and a database server,
-# connected together using an internal network with manually-assigned
-# IP addresses for the VMs.
-
 Vagrant.configure("2") do |config|
 
     config.vm.box = "ubuntu/xenial64"

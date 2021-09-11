@@ -103,7 +103,8 @@ class Router {
                 return true;
             } else {
                 res.json({
-                    success: false
+                    success: false,
+                    msg: "Could not log out."
                 })
                 return false;
             }
