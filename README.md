@@ -28,7 +28,7 @@ While they both use Node.js, the tech stack varies for both webserver and dbserv
 1. webserver - It is a React.js project being served using Express.js. It uses Tailwind CSS for styling. For more information, see [here](./docs/webserver/index.md).
 2. dbserver - It runs the MySQL database and the Express.js API that the webserver uses to interface with it. For more information, see [here](./docs/dbserver/index.md).
 
-## Installation and Usage 🏃
+## Installation and Usage 🧭
 
 ### Requirements
 - *VirtualBox (v6.1.x)*\
