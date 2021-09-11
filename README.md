@@ -22,11 +22,12 @@ Flatbills is a platform for flats to manage their bill payments. There are two t
 This project runs on 3 virtual machines:
 1. 192.168.2.11 - This hosts webserver which is a web interface for users to interact with the platform.
 2. 192.168.2.12 - This hosts dbserver which is a database that stores all the records of the users.
-3. xxx - This hosts the email server which sends email notifications to users on the due date of the bill payments.
+3. 192.168.2.13 - This hosts the email server which sends email notifications to users on the due date of the bill payments.
 
 While they both use Node.js, the tech stack varies for both webserver and dbserver:
-1. webserver - It is a React.js project being served using Express.js. It uses Tailwind CSS for styling. For more information, see [here](./docs/webserver/index.md).
-2. dbserver - It runs the MySQL database and the Express.js API that the webserver uses to interface with it. For more information, see [here](./docs/dbserver/index.md).
+1. webserver - A React.js project being served using Express.js. It uses Tailwind CSS for styling. For more information, see [here](./docs/webserver/index.md).
+2. dbserver - Runs the MySQL database and the Express.js API that the webserver and emailserver use to interface with it. For more information, see [here](./docs/dbserver/index.md).
+3. emailserver - It uses cron to run a Node.js script to send out email notifications to users. For more information, see [here](./docs/emailserver/index.md)
 
 ## Installation and Usage 🧭
 
@@ -46,7 +47,7 @@ https://www.virtualbox.org/wiki/Downloads
     - **Windows**\
     Does not have virtualisation enabled by default. To enable, see [here](https://www.youtube.com/watch?v=MOuTxfzCvMY)
 - *Firefox*\
-    Flatbills is only compatible with the Firefox browser. Download [here](https://www.mozilla.org/en-GB/firefox/browsers/) for all operating systems.
+    For now, Flatbills is only compatible with the Firefox browser. Download [here](https://www.mozilla.org/en-GB/firefox/browsers/) for all operating systems.
 
 ### Running the servers
 - *Clone the repository*\
