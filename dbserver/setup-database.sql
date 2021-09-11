@@ -53,7 +53,10 @@ create table bill_status (
 -- insert into users values ("magdeline0512@gmail.com", "Magdeline", "Huang", "$2b$09$n4RT4.6/bXdlPNKHf8O5XujRLZhfbCnmOKATHSWdh8vzYyAcslOoS", 1, "sldjfl");
 -- insert into bills values (null, "Rent", "2021-08-31", 400.00, "sldjfl");
 -- insert into bills values (null, "Power", "2021-09-30", 69.00, "sldjfl");
+-- insert into bills values (null, "WiFi", "2021-09-11", 34.99, "sldjfl");
 -- insert into bill_status values (null, 1, "ejpfraser@gmail.com", "pending");
 -- insert into bill_status values (null, 1, "magdeline0512@gmail.com", "paid");
 -- insert into bill_status values (null, 2, "ejpfraser@gmail.com", "due");
 -- insert into bill_status values (null, 2, "magdeline0512@gmail.com", "paid");
+-- insert into bill_status values (null, 3, "ejpfraser@gmail.com", "due");
+-- insert into bill_status values (null, 3, "magdeline0512@gmail.com", "overdue");

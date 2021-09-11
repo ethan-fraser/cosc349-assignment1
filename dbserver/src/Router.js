@@ -18,6 +18,7 @@ class Router {
         this.billInfo(app, db);
         this.createBill(app, db);
         this.updateBillStatus(app, db);
+        this.getDueBills(app, db);
     }
 
     getFlatNameByID(db, id){
@@ -581,6 +582,137 @@ class Router {
                     res.json({
                         success: false,
                         msg: "Could not update bill: " + err
+                    })
+                })
+        })
+    }
+
+    getAllUserEmailsAndFNames(db) {
+        return new Promise((resolve, reject) => {
+            db.query('SELECT email, fname FROM users', (err, data) => {
+                if (err) {
+                    reject(err)
+                }
+                if (data) {
+                    resolve(data)
+                } else {
+                    reject("Could not get user emails")
+                }
+            })
+        })
+    }
+
+    getAllBillStatusesByUserEmail(db, params) {
+        return new Promise((resolve, reject) => {
+            db.query('SELECT name, amount, status, due FROM bills JOIN bill_status ON bills.billID=bill_status.billID WHERE userEmail = ?', params, (err, data) => {
+                if (err) {
+                    reject(err)
+                }
+                if (data) {
+                    resolve(data)
+                } else {
+                    reject("Could not get bill statuses")
+                }
+            })
+        })
+    }
+
+    getNumMembersInFlatByUserEmail(db, params) {
+        return new Promise((resolve, reject) => {
+            db.query('SELECT COUNT(*) numMembers FROM users WHERE flatID = (SELECT flatID FROM users WHERE email = ?)', params, (err, data) => {
+                if (err) {
+                    reject(err)
+                }
+                if (data && data.length === 1) {
+                    resolve(data[0].numMembers)
+                } else {
+                    reject("Could not get number of members")
+                }
+            })
+        })
+    }
+
+    isSameDay(date1, date2) {
+        if (date1.getFullYear() === date2.getFullYear() &&
+            date1.getMonth() === date2.getMonth() &&
+            date1.getDate() === date2.getDate()) {
+                return true
+            }
+        return false
+    }
+
+    getBillStatusInfo(db, userEmail, userFirstName) {
+        return new Promise((resolve, reject) => {
+            this.getAllBillStatusesByUserEmail(db, [userEmail])
+                .then(billStatuses => {
+                    let billsForEachPromise = new Promise((res, rej) => {
+                        var userBills = []
+                        let numBillsProcessed = 0
+                        billStatuses.forEach(bill => {
+                                this.getNumMembersInFlatByUserEmail(db, [userEmail])
+                                    .then(numMembers => {
+                                        if ((bill.status === "due" || bill.status === "overdue") && this.isSameDay(new Date(bill.due), new Date())) {
+                                            userBills.push({
+                                                name: bill.name,
+                                                amount: +((bill.amount/numMembers).toFixed(2))
+                                            })
+                                        }
+                                        numBillsProcessed++
+                                        if (numBillsProcessed === billStatuses.length) {
+                                            res(userBills)
+                                        }
+                                    })
+                                    .catch(err => {
+                                        rej(err)
+                                    })
+
+                        })
+                    })
+                    billsForEachPromise.then(userBills => {
+                        resolve({
+                            email: userEmail,
+                            firstName: userFirstName,
+                            bills: userBills
+                        })
+                    })
+                    billsForEachPromise.catch(err => {
+                        reject(err)
+                    })
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
+    }
+
+    getDueBills(app, db) {
+        app.get('/getDueBills', (req, res) => {
+            this.getAllUserEmailsAndFNames(db)
+                .then(userEmails => {
+                    let emailsForEachPromise = new Promise((resolve, reject) =>{
+                        let dueBills = []
+                        userEmails.forEach(user => {
+                            this.getBillStatusInfo(db, user.email, user.fname)
+                                .then(billStatusInfo => {
+                                    dueBills.push(billStatusInfo)
+                                    if (dueBills.length === userEmails.length) {
+                                        resolve(dueBills)
+                                    }
+                                })
+                            
+                        })
+                    })
+                    emailsForEachPromise.then(dueBills => {
+                        res.json({
+                            success: true,
+                            dueBills: dueBills
+                        })
+                    })
+                })
+                .catch(err => {
+                    res.json({
+                        success: false,
+                        msg: err
                     })
                 })
         })

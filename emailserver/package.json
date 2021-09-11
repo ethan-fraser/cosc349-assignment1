@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/ethan-fraser/cosc349-assignment1#readme",
   "dependencies": {
-    "nodemailer": "^6.6.3"
+    "axios": "^0.21.4",
+    "dotenv": "^10.0.0",
+    "nodemailer": "^6.6.3",
+    "smtp-server": "^3.9.0"
   }
 }

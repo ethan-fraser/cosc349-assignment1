@@ -19,12 +19,6 @@ app.use(function(req, res, next) {
 })
 
 //Database connection
-console.log({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    pass: process.env.DB_PASS,
-    name: process.env.DB_NAME
-})
 const db = mysql.createConnection({
     host:       process.env.DB_HOST,
     user:       process.env.DB_USER,
