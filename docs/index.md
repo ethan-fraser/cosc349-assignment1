@@ -10,6 +10,7 @@
     - [Vagrantfile](#vagrantfile)
     - [Webserver](#webserver)
     - [DBServer](#dbserver)
+    - [EmailServer](#emailserver)
 
 ---
 
@@ -47,3 +48,6 @@ The webserver hosts the front end of the website. It is a React.js project being
 
 ### DBServer
 The dbserver runs the MySQL database and the Express.js API that the webserver uses to interface with it. For more information on the dbserver, see [here](./dbserver/index.md).
+
+### EmailServer
+The emailserver uses cron to run a Node.js script once daily to send email notifications to users about the bills they have due on that day. For more information on the emailserver, see [here]
