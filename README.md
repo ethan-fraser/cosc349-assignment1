@@ -81,19 +81,19 @@ The database has been prepopulated with test data to ensure minimal user interac
     - Flat name: 349 Cloud St
 - Flat member:
     - Email: member@gmail.com
-    - Password: 54321
+    - Password: 12345
     - First name: Member
     - Last name: Cloud
-    - Flat code: xxx
+    - Flat code: a4be9ffe
 - Rent bill card:
     - Bill name: Rent
-    - Bill amount: $400
+    - Bill amount: $400.00
     - Bill due date: 13 Oct 2021
 - Power bill card:
     - Bill name: Power
-    - Bill amount: $50
+    - Bill amount: $50.00
     - Bill due date: 21 Oct 2021
-- Water bill card:
-    - Bill name: Water
-    - Bill amount: $100
-    - Bill due date: 11 Dec 2021
+- WiFi bill card:
+    - Bill name: WiFi
+    - Bill amount: $65.00
+    - Bill due date: 11 Oct 2021
