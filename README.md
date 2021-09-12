@@ -9,6 +9,10 @@ For full documentation, see the [docs](./docs/index.md) directory.
 ## Contents
 - [Description](#description-)
 - [Installation and Usage](#installation-and-usage-)
+    - [Requirements](#requirements)
+    - [Running the servers](#running-the-servers)
+    - [Restarting the servers](#restarting-the-servers)
+    - [Shutting down the servers](#shutting-down-the-servers)
 - [Demo](#demo-)
 - [Test Data](#test-data-)
 
