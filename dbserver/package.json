@@ -19,7 +19,6 @@
   "homepage": "https://github.com/ethan-fraser/cosc349-assignment1#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
