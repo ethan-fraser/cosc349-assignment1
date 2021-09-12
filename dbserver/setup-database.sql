@@ -54,9 +54,9 @@ insert into users values ("member@gmail.com", "Member", "Cloud", "$2b$09$n4RT4.6
 insert into bills values (null, "Rent", "2021-10-13", 400.00, "a4be9ffe");
 insert into bills values (null, "Power", "2021-10-21", 50.00, "a4be9ffe");
 insert into bills values (null, "WiFi", "2021-10-11", 65.00, "a4be9ffe");
-insert into bill_status values (null, 1, "ejpfraser@gmail.com", "pending");
-insert into bill_status values (null, 1, "magdeline0512@gmail.com", "paid");
-insert into bill_status values (null, 2, "ejpfraser@gmail.com", "due");
-insert into bill_status values (null, 2, "magdeline0512@gmail.com", "paid");
-insert into bill_status values (null, 3, "ejpfraser@gmail.com", "due");
-insert into bill_status values (null, 3, "magdeline0512@gmail.com", "overdue");
+insert into bill_status values (null, 1, "member@gmail.com", "pending");
+insert into bill_status values (null, 1, "manager@gmail.com", "paid");
+insert into bill_status values (null, 2, "member@gmail.com", "due");
+insert into bill_status values (null, 2, "manager@gmail.com", "due");
+insert into bill_status values (null, 3, "member@gmail.com", "due");
+insert into bill_status values (null, 3, "manager@gmail.com", "due");
