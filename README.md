@@ -48,6 +48,8 @@ https://www.virtualbox.org/wiki/Downloads
     Does not have virtualisation enabled by default. To enable, see [here](https://www.youtube.com/watch?v=MOuTxfzCvMY)
 - *Firefox*\
     For now, Flatbills is only compatible with the Firefox browser. Download [here](https://www.mozilla.org/en-GB/firefox/browsers/) for all operating systems.
+- *dotenv files*\
+    The DBServer and EmailServer both have environment variable configuration handled by [dotenv](https://www.npmjs.com/package/dotenv). You must ensure that the correct configuration files are located in the root directory of each of these. If you need access to these files, please contact one of the developers.
 
 ### Running the servers
 - *Clone the repository*\
